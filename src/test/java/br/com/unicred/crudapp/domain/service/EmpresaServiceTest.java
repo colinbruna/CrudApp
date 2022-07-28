@@ -1,9 +1,8 @@
 package br.com.unicred.crudapp.domain.service;
 
-import br.com.unicred.crudapp.application.dto.EmpresaDto;
+import br.com.unicred.crudapp.application.data.EmpresaResponse;
 import br.com.unicred.crudapp.domain.model.Empresa;
 import br.com.unicred.crudapp.domain.model.Endereco;
-import br.com.unicred.crudapp.domain.service.impl.EmpresaServiceImpl;
 import br.com.unicred.crudapp.infraestructure.repository.EmpresaRepository;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,15 +19,15 @@ import static org.mockito.Mockito.when;
 
 class EmpresaServiceTest {
 
-    EmpresaService empresaService;
+    EmpresaService service;
 
     @Mock
     EmpresaRepository repository;
 
-    @BeforeEach
+    @BeforeEach      //o código marcado com essa anotação é executado antes da cada teste
     public void setUp() {
         repository = mock(EmpresaRepository.class);
-        empresaService = new EmpresaServiceImpl(repository);
+        service = new EmpresaServiceImpl(modelMapper, repository);
     }
 
     @Test
@@ -36,7 +35,7 @@ class EmpresaServiceTest {
     void retornarListaEmpresas() {
         when(repository.findAll()).thenReturn(listaEmpresasMock());
 
-        List<EmpresaDto> empresas = empresaService.listarTodasEmpresas();
+        List<EmpresaResponse> empresas = service.listarTodasEmpresas();
 
         assertEquals(1, empresas.size());
         assertEquals("62df09a4a9308e027d78139a", empresas.get(0).getId());

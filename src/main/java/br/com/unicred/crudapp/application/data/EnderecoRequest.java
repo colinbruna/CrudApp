@@ -1,6 +1,6 @@
-package br.com.unicred.crudapp.application.dto;
+package br.com.unicred.crudapp.application.data;
 
-public class EnderecoDto {
+public class EnderecoRequest {
 
     private String logradouro;
     private int numero;

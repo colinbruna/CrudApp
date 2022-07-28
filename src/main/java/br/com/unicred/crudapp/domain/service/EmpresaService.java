@@ -1,13 +1,16 @@
 package br.com.unicred.crudapp.domain.service;
 
-import br.com.unicred.crudapp.application.dto.EmpresaDto;
-import org.springframework.http.ResponseEntity;
+import br.com.unicred.crudapp.application.data.EmpresaRequest;
+import br.com.unicred.crudapp.application.data.EmpresaResponse;
 
 import java.util.List;
 
 public interface EmpresaService {
 
-    List<EmpresaDto> listarTodasEmpresas();
+    EmpresaResponse criarEmpresa(EmpresaRequest empresaRequest);
 
+    List<EmpresaResponse> listarTodasEmpresas();
+
+    EmpresaResponse buscarEmpresaPorId(String id);
 
 }

@@ -1,13 +1,13 @@
-package br.com.unicred.crudapp.application.dto;
+package br.com.unicred.crudapp.application.data;
 
-public class EmpresaDto {
+public class EmpresaResponse {
 
     private String id;
     private String nome;
     private String cnpj;
     private String email;
     private String telefone;
-    private EnderecoDto endereco;
+    private EnderecoResponse endereco;
 
     public String getId() {
         return id;
@@ -49,11 +49,11 @@ public class EmpresaDto {
         this.telefone = telefone;
     }
 
-    public EnderecoDto getEndereco() {
+    public EnderecoResponse getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(EnderecoDto endereco) {
+    public void setEndereco(EnderecoResponse endereco) {
         this.endereco = endereco;
     }
 
