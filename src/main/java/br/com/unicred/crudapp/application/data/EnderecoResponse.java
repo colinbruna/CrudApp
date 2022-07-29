@@ -56,5 +56,4 @@ public class EnderecoResponse {
     public void setCep(String cep) {
         this.cep = cep;
     }
-
 }

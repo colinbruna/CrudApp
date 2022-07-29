@@ -1,21 +1,20 @@
 package br.com.unicred.crudapp.application.data;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class EmpresaRequest {
 
-    private String id;
+    @NotNull @NotEmpty
     private String nome;
+    @NotNull @NotEmpty
     private String cnpj;
+    @NotNull @NotEmpty
     private String email;
+    @NotNull @NotEmpty
     private String telefone;
+    @NotNull
     private EnderecoResponse endereco;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getNome() {
         return nome;
@@ -56,5 +55,4 @@ public class EmpresaRequest {
     public void setEndereco(EnderecoResponse endereco) {
         this.endereco = endereco;
     }
-
 }

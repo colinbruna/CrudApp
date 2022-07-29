@@ -56,5 +56,4 @@ public class EmpresaResponse {
     public void setEndereco(EnderecoResponse endereco) {
         this.endereco = endereco;
     }
-
 }

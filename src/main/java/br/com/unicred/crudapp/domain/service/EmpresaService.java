@@ -13,4 +13,7 @@ public interface EmpresaService {
 
     EmpresaResponse buscarEmpresaPorId(String id);
 
+    EmpresaResponse alterarEmpresa(String id, EmpresaRequest empresaRequest);
+
+    void excluirEmpresa(String id);
 }

@@ -8,7 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/empresas")
@@ -22,7 +24,7 @@ public class EmpresaController {
     }
 
     @PostMapping                    //ResponseEntity representa toda a resposta HTTP: código de status, cabeçalhos e corpo
-    public ResponseEntity<EmpresaResponse> criarEmpresa(@RequestBody EmpresaRequest empresaRequest) {
+    public ResponseEntity<EmpresaResponse> criarEmpresa(@RequestBody @Valid EmpresaRequest empresaRequest) {
         return new ResponseEntity<>(service.criarEmpresa(empresaRequest), HttpStatus.CREATED);
     }
 
@@ -36,5 +38,19 @@ public class EmpresaController {
         return new ResponseEntity<>(service.buscarEmpresaPorId(id), HttpStatus.OK);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<EmpresaResponse> alterarEmpresa(@PathVariable String id, @RequestBody EmpresaRequest empresaRequest) {
+        EmpresaResponse empresaResponse = service.alterarEmpresa(id, empresaRequest);
+        if (Objects.isNull(empresaResponse)) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
 
+        return new ResponseEntity<>(empresaResponse, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void excluirEmpresa(@PathVariable String id) {
+        service.excluirEmpresa(id);
+    }
 }

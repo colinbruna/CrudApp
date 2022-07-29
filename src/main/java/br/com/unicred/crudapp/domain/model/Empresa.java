@@ -62,5 +62,4 @@ public class Empresa {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
-
 }

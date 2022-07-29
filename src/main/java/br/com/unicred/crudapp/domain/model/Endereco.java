@@ -21,9 +21,7 @@ public class Endereco {
         return numero;
     }
 
-    public void setNumero(int numero) {
-        this.numero = numero;
-    }
+    public void setNumero(int numero) { this.numero = numero; }
 
     public String getBairro() {
         return bairro;
@@ -56,5 +54,4 @@ public class Endereco {
     public void setCep(String cep) {
         this.cep = cep;
     }
-
 }
