@@ -8,7 +8,7 @@ Criar aplicação crud expondo:
 - [ ] setores
 - [ ] funcionários
 
-Cadastros devem ser feitos expontos apis REST
+Cadastros devem ser feitos expondo apis REST
 
 Utilizar a estrutura de desenvolvimento baseada em DDD
 
