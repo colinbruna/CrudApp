@@ -20,7 +20,8 @@ Regras de negócio: os campos não podem ser nulo ou estar em branco, caso não 
 O cep precisa ser um cep válido e existente, para verificar se um cep existe basta consultar o endpoint https://viacep.com.br/ws/NUMERO_CEP, ec:
 https://viacep.com.br/ws/98995000, caso não sejão lançados lançar uma exceção que deve ser tratada através de um HandlerException do spring.
 obs: o client para a consulta do cep deve ser usado o openfeign
-Validar se o email segue um padrão válido, lançar exceção tratada pelo HandlerException do spring em caso email inválido. Validar se o telefone informado é valido, no caso ele deve ter 11 dígitos, somente dígitos, lançar exceção tratada pelo HandlerException do spring em caso telefone inválido.
+
+Validar se o e-mail segue um padrão válido, lançar exceção tratada pelo HandlerException do spring em caso email inválido. Validar se o telefone informado é valido, no caso ele deve ter 11 dígitos, somente dígitos, lançar exceção tratada pelo HandlerException do spring em caso telefone inválido.
 
 Endpoints exposto: criar, ler, atualizar, excluir e listar
 
@@ -50,3 +51,17 @@ Todas as regras de negócio devem ser tratadas com o uso do JUnit, para testar a
 - [ ] empresas
 - [ ] setores
 - [ ] funcionários
+
+
+### Validação CEP
+
+Spring Cloud OpenFeign: cliente REST declarativo para aplicativos Spring Boot. O feign facilita a escrita de clientes de serviço da Web com suporte a anotações conectávies. Vantagem sobre o uso do feign é que não precisamos escrever nenhum código para chamar o serviço, a não ser uma definição de interface.
+
+- Add as dependências gradle: 
+
+implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.1.3'
+
+mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2021.0.3'
+
+- Adicionar @EnableFeignClients à classe principal. Com essa anotação, habilitamos a verificação de componentes para interfaces que declaram que são clientes do Feign.
+- 

@@ -1,8 +1,11 @@
 package br.com.unicred.crudapp.domain.service;
 
-import br.com.unicred.crudapp.application.data.EmpresaRequest;
-import br.com.unicred.crudapp.application.data.EmpresaResponse;
+import br.com.unicred.crudapp.application.controller.data.EmpresaRequest;
+import br.com.unicred.crudapp.application.controller.data.EmpresaResponse;
+import br.com.unicred.crudapp.exception.FieldValidationException;
 import br.com.unicred.crudapp.domain.model.Empresa;
+import br.com.unicred.crudapp.infraestructure.client.ViaCepClient;
+import br.com.unicred.crudapp.infraestructure.client.ViaCepResponse;
 import br.com.unicred.crudapp.infraestructure.repository.EmpresaRepository;
 import org.bson.types.ObjectId;
 import org.modelmapper.ModelMapper;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -20,14 +24,19 @@ public class EmpresaServiceImpl implements EmpresaService {
 
     private final EmpresaRepository repository;
 
+    private final ViaCepClient client;
+
     @Autowired
-    public EmpresaServiceImpl(final ModelMapper modelMapper, final EmpresaRepository repository) {
+    public EmpresaServiceImpl(final ModelMapper modelMapper, final EmpresaRepository repository, final ViaCepClient client) {
         this.modelMapper = modelMapper;
         this.repository = repository;
+        this.client = client;
     }
 
     @Override
     public EmpresaResponse criarEmpresa(final EmpresaRequest empresaRequest) {
+        validarCep(empresaRequest);
+
         Empresa empresa = modelMapper.map(empresaRequest, Empresa.class);                       //recebe empresaRequest converte para empresa
         Empresa empresaSalva = repository.save(empresa);                                        //salva empresa
         return modelMapper.map(empresaSalva, EmpresaResponse.class);                            //converte empresa para empresaResponse e retorna ela
@@ -54,6 +63,7 @@ public class EmpresaServiceImpl implements EmpresaService {
 
     @Override
     public EmpresaResponse alterarEmpresa(final String id, final EmpresaRequest empresaRequest) {
+        validarCep(empresaRequest);
         Optional<Empresa> optEmpresa = repository.findById(new ObjectId(id));                   //busca por id
 
         if (optEmpresa.isPresent()) {                                                           //se encontrar o id executar
@@ -61,24 +71,28 @@ public class EmpresaServiceImpl implements EmpresaService {
             optEmpresa.get().setCnpj(empresaRequest.getCnpj());
             optEmpresa.get().setEmail(empresaRequest.getEmail());
             optEmpresa.get().setTelefone(empresaRequest.getTelefone());
+            optEmpresa.get().setCep(empresaRequest.getCep());
+            optEmpresa.get().setLogradouro(empresaRequest.getLogradouro());
+            optEmpresa.get().setComplemento(empresaRequest.getComplemento());
+            optEmpresa.get().setBairro(empresaRequest.getBairro());
+            optEmpresa.get().setLocalidade(empresaRequest.getLocalidade());
+            optEmpresa.get().setUf(empresaRequest.getUf());
 
-            modelMapper.map(empresaRequest.getEndereco(),optEmpresa.get().getEndereco());       //pega os dados de endereço da empresaRequest e converte para endereço da optEmpresa
-
-            /*optEmpresa.get().getEndereco().setLogradouro(empresaRequest.getEndereco().getLogradouro());
-            optEmpresa.get().getEndereco().setNumero(empresaRequest.getEndereco().getNumero());
-            optEmpresa.get().getEndereco().setBairro(empresaRequest.getEndereco().getBairro());
-            optEmpresa.get().getEndereco().setCidade(empresaRequest.getEndereco().getCidade());
-            optEmpresa.get().getEndereco().setEstado(empresaRequest.getEndereco().getEstado());
-            optEmpresa.get().getEndereco().setCep(empresaRequest.getEndereco().getCep());*/
-
-            return modelMapper.map(repository.save(optEmpresa.get()), EmpresaResponse.class);   //salva optEmpresa no banco converte para Response e retorna resposta
+            return modelMapper.map(repository.save(optEmpresa.get()), EmpresaResponse.class);      //salva optEmpresa no banco converte para Response e retorna resposta
         }
 
-        return null;                                                                            //se não encontrar o id, retorna null e trata na controller
+        return null;                                                                                //se não encontrar o id, retorna null e trata na controller
     }
 
     @Override
     public void excluirEmpresa(final String id) {
-        repository.deleteById(new ObjectId(id));                                                //exclui empresa por id
+        repository.deleteById(new ObjectId(id));                                                     //exclui empresa por id
+    }
+
+    private void validarCep(final EmpresaRequest empresaRequest) {
+        ViaCepResponse viaCepResponse = client.buscarCep(empresaRequest.getCep());       //buscando cep
+        if (Objects.isNull(viaCepResponse.getCep())) {
+            throw new FieldValidationException("Cep","Cep inválido");
+        }
     }
 }

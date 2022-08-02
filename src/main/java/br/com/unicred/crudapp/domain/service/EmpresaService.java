@@ -1,7 +1,7 @@
 package br.com.unicred.crudapp.domain.service;
 
-import br.com.unicred.crudapp.application.data.EmpresaRequest;
-import br.com.unicred.crudapp.application.data.EmpresaResponse;
+import br.com.unicred.crudapp.application.controller.data.EmpresaRequest;
+import br.com.unicred.crudapp.application.controller.data.EmpresaResponse;
 
 import java.util.List;
 

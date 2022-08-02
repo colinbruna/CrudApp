@@ -1,30 +1,24 @@
-package br.com.unicred.crudapp.domain.model;
+package br.com.unicred.crudapp.application.controller.data;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+public class EmpresaResponse {
 
-@Document(collection = "empresa")
-public class Empresa {
-
-    @Id
-    private ObjectId id;
+    private String id;
     private String nome;
     private String cnpj;
     private String email;
     private String telefone;
-    private String cep;         //endereço baseado nos dados do web service dos correios
+    private String cep;
     private String logradouro;
     private String complemento;
     private String bairro;
     private String localidade;
     private String uf;
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 

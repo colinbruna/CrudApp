@@ -1,8 +1,7 @@
 package br.com.unicred.crudapp.domain.service;
 
-import br.com.unicred.crudapp.application.data.EmpresaResponse;
+import br.com.unicred.crudapp.application.controller.data.EmpresaResponse;
 import br.com.unicred.crudapp.domain.model.Empresa;
-import br.com.unicred.crudapp.domain.model.Endereco;
 import br.com.unicred.crudapp.infraestructure.repository.EmpresaRepository;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +26,7 @@ class EmpresaServiceTest {
     @BeforeEach      //o código marcado com essa anotação é executado antes da cada teste
     public void setUp() {
         repository = mock(EmpresaRepository.class);
-        service = new EmpresaServiceImpl(modelMapper, repository);
+        service = new EmpresaServiceImpl(modelMapper, repository, client);
     }
 
     @Test
@@ -43,12 +42,7 @@ class EmpresaServiceTest {
         assertEquals("12345678912345", empresas.get(0).getCnpj());
         assertEquals("empresa@email.com", empresas.get(0).getEmail());
         assertEquals("123456789", empresas.get(0).getTelefone());
-        assertEquals("Rua rua", empresas.get(0).getEndereco().getLogradouro());
-        assertEquals(10, empresas.get(0).getEndereco().getNumero());
-        assertEquals("bairro", empresas.get(0).getEndereco().getBairro());
-        assertEquals("cidade", empresas.get(0).getEndereco().getCidade());
-        assertEquals("estado", empresas.get(0).getEndereco().getEstado());
-        assertEquals("12345678", empresas.get(0).getEndereco().getCep());
+        //endereço
     }
 
     private List<Empresa> listaEmpresasMock() {

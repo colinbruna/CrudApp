@@ -1,7 +1,7 @@
 package br.com.unicred.crudapp.application.controller;
 
-import br.com.unicred.crudapp.application.data.EmpresaRequest;
-import br.com.unicred.crudapp.application.data.EmpresaResponse;
+import br.com.unicred.crudapp.application.controller.data.EmpresaRequest;
+import br.com.unicred.crudapp.application.controller.data.EmpresaResponse;
 import br.com.unicred.crudapp.domain.service.EmpresaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,13 +33,13 @@ public class EmpresaController {
         return service.listarTodasEmpresas();
     }
 
-    @GetMapping("/{id}")                 //@PathVariable é utilizado quando o valor da variável é passada diretamente na URL como um valor que faz parte da URL
-    public ResponseEntity<EmpresaResponse> buscarEmpresaPorId(@PathVariable String id) {
+    @GetMapping("/{id}")            //@PathVariable é utilizado quando o valor da variável é passada diretamente na URL como um valor que faz parte da URL
+    public ResponseEntity<EmpresaResponse> buscarEmpresaPorId(@PathVariable String id) {//busca pode ser por cnpj?
         return new ResponseEntity<>(service.buscarEmpresaPorId(id), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<EmpresaResponse> alterarEmpresa(@PathVariable String id, @RequestBody EmpresaRequest empresaRequest) {
+    @PutMapping("/{id}")                                            //poderia ser cnpj??
+    public ResponseEntity<EmpresaResponse> alterarEmpresa(@PathVariable String id, @RequestBody @Valid EmpresaRequest empresaRequest) {
         EmpresaResponse empresaResponse = service.alterarEmpresa(id, empresaRequest);
         if (Objects.isNull(empresaResponse)) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
