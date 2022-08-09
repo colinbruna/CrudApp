@@ -52,6 +52,17 @@ Todas as regras de negócio devem ser tratadas com o uso do JUnit, para testar a
 - [ ] setores
 - [ ] funcionários
 
+### DDD
+
+### REST
+
+### Exceptions
+
+### Model Mapper
+
+### Controller Advice
+
+### Handler
 
 ### Validação CEP
 
@@ -64,4 +75,12 @@ implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.1.3'
 mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2021.0.3'
 
 - Adicionar @EnableFeignClients à classe principal. Com essa anotação, habilitamos a verificação de componentes para interfaces que declaram que são clientes do Feign.
-- 
+- Criada Interface ViaCepClient
+- Criado método para validar o cep na serviceImpl e criada classe ViaCepResponse.
+
+### Expressões regulares - regex
+
+### Operador ternário
+
+### Debug
+

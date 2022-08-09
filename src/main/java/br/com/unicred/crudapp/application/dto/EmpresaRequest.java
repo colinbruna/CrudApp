@@ -1,4 +1,4 @@
-package br.com.unicred.crudapp.application.controller.data;
+package br.com.unicred.crudapp.application.dto;
 
 import org.hibernate.validator.constraints.br.CNPJ;
 
@@ -12,6 +12,7 @@ public class EmpresaRequest {                       //devo colocar as validaçõ
     private String nome;
 
     @CNPJ
+    @NotBlank(message = "CNPJ é obrigatório")
     private String cnpj;
 
     @NotBlank(message = "E-mail é obrigatório")
@@ -39,6 +40,9 @@ public class EmpresaRequest {                       //devo colocar as validaçõ
 
     @NotBlank(message = "Estado é obrigatório")
     private String uf;
+
+    public EmpresaRequest() {
+    }
 
     public String getNome() { return nome; }
 

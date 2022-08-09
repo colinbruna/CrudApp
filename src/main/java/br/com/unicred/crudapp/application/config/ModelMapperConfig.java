@@ -1,4 +1,4 @@
-package br.com.unicred.crudapp.config;
+package br.com.unicred.crudapp.application.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

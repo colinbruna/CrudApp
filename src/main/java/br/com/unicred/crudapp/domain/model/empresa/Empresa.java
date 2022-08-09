@@ -1,14 +1,9 @@
-package br.com.unicred.crudapp.domain.model;
+package br.com.unicred.crudapp.domain.model.empresa;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document(collection = "empresa")
 public class Empresa {
 
-    @Id
-    private ObjectId id;
+    //entidade: classe que tem algum atributo que identifica unicamente cada objeto
+
     private String nome;
     private String cnpj;
     private String email;
@@ -20,12 +15,7 @@ public class Empresa {
     private String localidade;
     private String uf;
 
-    public ObjectId getId() {
-        return id;
-    }
-
-    public void setId(ObjectId id) {
-        this.id = id;
+    public Empresa() {
     }
 
     public String getNome() {

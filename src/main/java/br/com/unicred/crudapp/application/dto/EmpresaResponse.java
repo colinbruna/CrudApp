@@ -1,8 +1,7 @@
-package br.com.unicred.crudapp.application.controller.data;
+package br.com.unicred.crudapp.application.dto;
 
 public class EmpresaResponse {
 
-    private String id;
     private String nome;
     private String cnpj;
     private String email;
@@ -14,12 +13,7 @@ public class EmpresaResponse {
     private String localidade;
     private String uf;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public EmpresaResponse() {
     }
 
     public String getNome() {
