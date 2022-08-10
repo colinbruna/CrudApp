@@ -13,5 +13,4 @@ public interface EmpresaConverter {
     EmpresaResponse converterParaResponse(Empresa empresa);
 
     List<EmpresaResponse> converterParaListaResponse(List<Empresa> empresas);
-
 }

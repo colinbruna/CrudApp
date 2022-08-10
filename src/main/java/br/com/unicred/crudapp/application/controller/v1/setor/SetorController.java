@@ -38,7 +38,7 @@ public class SetorController {
     * Primeiro fiz uma busca pela empresa para cadastrar uma empresa válida no setor,
     * encontrando a empresa, converto o setor request para setor para chamar a service e salvar
     * retornando da service converto para setor response e uma resposta http created
-     */
+    */
 
     @PutMapping("/{id}")
     public SetorResponse alterar(@PathVariable String id, @RequestBody @Valid SetorRequest setorRequest) {

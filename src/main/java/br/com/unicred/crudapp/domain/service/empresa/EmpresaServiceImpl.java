@@ -26,6 +26,7 @@ public class EmpresaServiceImpl implements EmpresaService {
         if (!validarFormatoCep(empresa.getCep().replace("-", ""))) {        //se o método de validar formato der falso, lançar exceção,
             throw new BusinessException("Cep", "Cep inválido");                                      //senão seguir o fluxo e chamar o metodo buscar cep
         }
+
         ViaCepResponse viaCepResponse = client.buscarCep(empresa.getCep());                   //buscando cep
         if (Objects.isNull(viaCepResponse.getCep())) {                                        //se o cep for nulo, lançar excessão de erro de erro de campo
             throw new BusinessException("Cep", "Cep inválido");                               //cep válido segue o fluxo no método que chamou o validar cep

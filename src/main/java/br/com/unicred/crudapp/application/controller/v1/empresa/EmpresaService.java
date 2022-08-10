@@ -15,10 +15,4 @@ public interface EmpresaService {
     Empresa buscar(String id);
 
     List<Empresa> listar();
-
-
-
-
-
-
 }

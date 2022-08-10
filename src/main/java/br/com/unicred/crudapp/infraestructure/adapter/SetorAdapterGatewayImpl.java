@@ -40,6 +40,7 @@ public class SetorAdapterGatewayImpl implements SetorAdapter {
             entity.setId(optSetorEntity.get().getId());
             return converter.converterParaSetor(repository.save(entity));
         }
+
         return null;
     }
 
@@ -55,6 +56,7 @@ public class SetorAdapterGatewayImpl implements SetorAdapter {
         if (optSetorEntity.isEmpty()) {
             return null;
         }
+
         return converter.converterParaSetor(optSetorEntity.get());
     }
 

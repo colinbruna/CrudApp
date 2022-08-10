@@ -6,7 +6,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-public class EmpresaRequest {                       //devo colocar as validações na classe de domínio??
+public class EmpresaRequest {
 
     @NotBlank(message = "Nome é obrigatório")
     private String nome;
@@ -48,9 +48,7 @@ public class EmpresaRequest {                       //devo colocar as validaçõ
 
     public void setNome(String nome) { this.nome = nome; }
 
-    public String getCnpj() {
-        return cnpj;
-    }
+    public String getCnpj() { return cnpj; }
 
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
@@ -96,9 +94,7 @@ public class EmpresaRequest {                       //devo colocar as validaçõ
         this.complemento = complemento;
     }
 
-    public String getBairro() {
-        return bairro;
-    }
+    public String getBairro() { return bairro; }
 
     public void setBairro(String bairro) {
         this.bairro = bairro;
@@ -116,7 +112,5 @@ public class EmpresaRequest {                       //devo colocar as validaçõ
         return uf;
     }
 
-    public void setUf(String uf) {
-        this.uf = uf;
-    }
+    public void setUf(String uf) { this.uf = uf; }
 }

@@ -44,7 +44,7 @@ public class EmpresaAdapterGatewayImpl implements EmpresaAdapter {
             return converter.converterParaEmpresa(repository.save(entity));
         }
 
-        return null;                                                                                //se não encontrar o id, retorna null e trata na controller
+        return null;                                                                        //se não encontrar o id, retorna null e trata na controller
     }
 
     public void excluir(final String id) {
@@ -63,6 +63,6 @@ public class EmpresaAdapterGatewayImpl implements EmpresaAdapter {
 
     public List<Empresa> listar() {
         List<EmpresaEntity> empresasEntity = repository.findAll();                  //lista empresasEntity recebe todas empresas encontradas no repositório
-        return converter.converterParaListaEmpresas(empresasEntity);                 //converte para lista empresas
+        return converter.converterParaListaEmpresas(empresasEntity);                //converte para lista empresas
     }
 }

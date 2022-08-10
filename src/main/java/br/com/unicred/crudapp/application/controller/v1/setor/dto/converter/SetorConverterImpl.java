@@ -37,6 +37,7 @@ public class SetorConverterImpl implements SetorConverter {
         for (Setor setor : setores) {
             setoresResponse.add(converterParaResponse(setor));
         }
+
         return setoresResponse;
     }
 }

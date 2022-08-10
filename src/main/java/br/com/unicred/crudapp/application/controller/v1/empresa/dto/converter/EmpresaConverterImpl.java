@@ -24,6 +24,7 @@ public class EmpresaConverterImpl implements EmpresaConverter {
     public Empresa converterParaEmpresa(final EmpresaRequest empresaRequest) {
         return mapper.map(empresaRequest, Empresa.class);
     }
+
     @Override
     public EmpresaResponse converterParaResponse(final Empresa empresa) {
         return mapper.map(empresa, EmpresaResponse.class);
@@ -39,5 +40,4 @@ public class EmpresaConverterImpl implements EmpresaConverter {
 
         return empresasResponse;
     }
-
 }
