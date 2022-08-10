@@ -1,34 +1,19 @@
-package br.com.unicred.crudapp.infraestructure.entity;
+package br.com.unicred.crudapp.application.controller.v1.empresa.dto;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+public class EmpresaResponse {
 
-@Document(collection = "empresa")
-public class EmpresaEntity {
-
-    @Id
-    private ObjectId id;
     private String nome;
     private String cnpj;
     private String email;
     private String telefone;
-    private String cep;         //endereço baseado nos dados do web service dos correios
+    private String cep;
     private String logradouro;
     private String complemento;
     private String bairro;
     private String localidade;
     private String uf;
 
-    public EmpresaEntity() {
-    }
-
-    public ObjectId getId() {
-        return id;
-    }
-
-    public void setId(ObjectId id) {
-        this.id = id;
+    public EmpresaResponse() {
     }
 
     public String getNome() {
@@ -91,7 +76,7 @@ public class EmpresaEntity {
         return bairro;
     }
 
-    public void setBairro(String bairro) {
+    public void setBairro(final String bairro) {
         this.bairro = bairro;
     }
 

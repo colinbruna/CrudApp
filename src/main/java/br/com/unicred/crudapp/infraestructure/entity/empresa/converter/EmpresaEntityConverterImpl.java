@@ -1,7 +1,7 @@
-package br.com.unicred.crudapp.infraestructure.entity.converter;
+package br.com.unicred.crudapp.infraestructure.entity.empresa.converter;
 
 import br.com.unicred.crudapp.domain.model.empresa.Empresa;
-import br.com.unicred.crudapp.infraestructure.entity.EmpresaEntity;
+import br.com.unicred.crudapp.infraestructure.entity.empresa.EmpresaEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,7 +27,7 @@ public class EmpresaEntityConverterImpl implements EmpresaEntityConverter {
         return mapper.map(empresaEntity, Empresa.class);
     }
 
-    public List<Empresa> converterParaListaEmpresa(final List<EmpresaEntity> empresasEntity) {
+    public List<Empresa> converterParaListaEmpresas(final List<EmpresaEntity> empresasEntity) {
         List<Empresa> empresas = new ArrayList<>();
 
         for (EmpresaEntity empresaEntity : empresasEntity) {

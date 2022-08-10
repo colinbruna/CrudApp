@@ -17,7 +17,7 @@ public class EmpresaServiceImpl implements EmpresaService {
     private final ViaCepClient client;
 
     @Autowired
-    public EmpresaServiceImpl(EmpresaAdapter adapter, final ViaCepClient client) {
+    public EmpresaServiceImpl(final EmpresaAdapter adapter, final ViaCepClient client) {
         this.adapter = adapter;
         this.client = client;
     }

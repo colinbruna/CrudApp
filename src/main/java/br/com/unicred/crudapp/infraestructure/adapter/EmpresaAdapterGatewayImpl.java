@@ -1,10 +1,9 @@
 package br.com.unicred.crudapp.infraestructure.adapter;
 
-import br.com.unicred.crudapp.application.controller.v1.exception.EntityNotFoundException;
 import br.com.unicred.crudapp.domain.model.empresa.Empresa;
 import br.com.unicred.crudapp.domain.service.empresa.EmpresaAdapter;
-import br.com.unicred.crudapp.infraestructure.entity.EmpresaEntity;
-import br.com.unicred.crudapp.infraestructure.entity.converter.EmpresaEntityConverter;
+import br.com.unicred.crudapp.infraestructure.entity.empresa.EmpresaEntity;
+import br.com.unicred.crudapp.infraestructure.entity.empresa.converter.EmpresaEntityConverter;
 import br.com.unicred.crudapp.infraestructure.repository.EmpresaRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +25,15 @@ public class EmpresaAdapterGatewayImpl implements EmpresaAdapter {
     }
 
     public Empresa salvar(final Empresa empresa) {
-        EmpresaEntity empresaEntity = converter.converterParaEntity(empresa);        //empresa entity esta recebendo a conversão de empresa para entity
-        repository.save(empresaEntity);                                              //salvando a empresa entity
-        return converter.converterParaEmpresa(empresaEntity);                        //converte para empresa
+        EmpresaEntity empresaEntity = converter.converterParaEntity(empresa);
+        EmpresaEntity empresaEntitySalva = repository.save(empresaEntity);
+        return converter.converterParaEmpresa(empresaEntitySalva);
     }
+    /*
+     * salvar: empresa entity esta recebendo a conversao de empresa para entity
+     * chamando repository save para salvar a empresa entity
+     * converte a entity para empresa
+     */
 
     public Empresa alterar(final String id, final Empresa empresa) {
         Optional<EmpresaEntity> optEmpresaEntity = repository.findById(new ObjectId(id));   //opt recebe a empresa do banco
@@ -44,27 +48,21 @@ public class EmpresaAdapterGatewayImpl implements EmpresaAdapter {
     }
 
     public void excluir(final String id) {
-        Optional<EmpresaEntity> optEmpresaEntity = repository.findById(new ObjectId(id));       //Optional: é usado basicamente como checagem se um objeto está presente ou não na aplicação. Vai evitar as exceções caso retorne dados nulos.
-
-        if (optEmpresaEntity.isEmpty()) {                                                       //.isEmpty() é um método da classe Optional
-            throw new EntityNotFoundException("Empresa não encontrada, não será possível exluir");
-        }
-
         repository.deleteById(new ObjectId(id));
     }
 
     public Empresa buscar(final String id) {
         Optional<EmpresaEntity> optEmpresaEntity = repository.findById(new ObjectId(id));       //Optional: é usado basicamente como checagem se um objeto está presente ou não na aplicação. Vai evitar as exceções caso retorne dados nulos.
 
-        if (optEmpresaEntity.isEmpty()) {                                                       //.isEmpty() é um método da classe Optional
-            throw new EntityNotFoundException("Empresa não encontrada");
-        }
+        if (optEmpresaEntity.isEmpty()) {
+            return null;
+        }                                                                                       //.isEmpty() é um método da classe Optional
 
         return converter.converterParaEmpresa(optEmpresaEntity.get());
     }
 
     public List<Empresa> listar() {
         List<EmpresaEntity> empresasEntity = repository.findAll();                  //lista empresasEntity recebe todas empresas encontradas no repositório
-        return converter.converterParaListaEmpresa(empresasEntity);                 //converte para lista empresas
+        return converter.converterParaListaEmpresas(empresasEntity);                 //converte para lista empresas
     }
 }

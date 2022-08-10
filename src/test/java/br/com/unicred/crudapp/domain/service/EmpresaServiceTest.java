@@ -1,7 +1,7 @@
 package br.com.unicred.crudapp.domain.service;
 
 import br.com.unicred.crudapp.application.controller.v1.empresa.EmpresaService;
-import br.com.unicred.crudapp.application.dto.EmpresaResponse;
+import br.com.unicred.crudapp.application.controller.v1.empresa.dto.EmpresaResponse;
 import br.com.unicred.crudapp.domain.model.empresa.Empresa;
 import br.com.unicred.crudapp.domain.service.empresa.EmpresaServiceImpl;
 import br.com.unicred.crudapp.infraestructure.repository.EmpresaRepository;

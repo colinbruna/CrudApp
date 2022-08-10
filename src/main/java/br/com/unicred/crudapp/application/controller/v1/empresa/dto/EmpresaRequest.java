@@ -1,30 +1,52 @@
-package br.com.unicred.crudapp.domain.model.empresa;
+package br.com.unicred.crudapp.application.controller.v1.empresa.dto;
 
-public class Empresa {
+import org.hibernate.validator.constraints.br.CNPJ;
 
-    //entidade: classe que tem algum atributo que identifica unicamente cada objeto
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
+public class EmpresaRequest {                       //devo colocar as validações na classe de domínio??
+
+    @NotBlank(message = "Nome é obrigatório")
     private String nome;
+
+    @CNPJ
+    @NotBlank(message = "CNPJ é obrigatório")
     private String cnpj;
+
+    @NotBlank(message = "E-mail é obrigatório")
+    @Email
     private String email;
+
+    @NotBlank(message = "Telefone é obrigatório")
+    @Size(min = 11, max = 11, message = "Número de telefone inválido")
     private String telefone;
-    private String cep;         //endereço baseado nos dados do web service dos correios
+
+    @NotBlank(message = "Cep é obrigatório")
+    private String cep;
+
+    @NotBlank(message = "Logradouro é obrigatório")
     private String logradouro;
+
+    @NotBlank(message = "Número é obrigatório")
     private String complemento;
+
+    @NotBlank(message = "Bairro é obrigatório")
     private String bairro;
+
+    @NotBlank(message = "Cidade é obrigatório")
     private String localidade;
+
+    @NotBlank(message = "Estado é obrigatório")
     private String uf;
 
-    public Empresa() {
+    public EmpresaRequest() {
     }
 
-    public String getNome() {
-        return nome;
-    }
+    public String getNome() { return nome; }
 
-    public void setNome(final String nome) {
-        this.nome = nome;
-    }
+    public void setNome(String nome) { this.nome = nome; }
 
     public String getCnpj() {
         return cnpj;

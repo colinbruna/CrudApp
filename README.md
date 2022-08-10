@@ -82,5 +82,30 @@ mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2021.0.3'
 
 ### Operador ternário
 
+### Códigos de status de respostas HTTP
+Respostas de informação (100-199)
+
+Respostas de sucesso (200-299)
+
+201 Created: a requisição foi bem sucedida e um novo recurso foi criado como resultado.
+
+204 No Content: não há conteúdo para enviar para esta solicitação.
+
+Redirecionamentos (300-399)
+
+Erros do cliente (400-499)
+
+400 bad request: significa que o servidor não entendeu a requisição, pois está com uma sintaxe inválida.
+
+404 not found: o servidor não pode encontrar o recurso solicitado.
+
+Erros do servidor (500-599)
+
 ### Debug
+
+### Optional
+
+### Anotações
+
+@Autowired - anotação para indicar que os parametros do construtor serão injetados
 

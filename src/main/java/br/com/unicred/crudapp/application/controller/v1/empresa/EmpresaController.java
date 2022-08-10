@@ -1,9 +1,9 @@
 package br.com.unicred.crudapp.application.controller.v1.empresa;
 
 import br.com.unicred.crudapp.application.controller.v1.exception.EntityNotFoundException;
-import br.com.unicred.crudapp.application.dto.converter.EmpresaConverter;
-import br.com.unicred.crudapp.application.dto.EmpresaRequest;
-import br.com.unicred.crudapp.application.dto.EmpresaResponse;
+import br.com.unicred.crudapp.application.controller.v1.empresa.dto.converter.EmpresaConverter;
+import br.com.unicred.crudapp.application.controller.v1.empresa.dto.EmpresaRequest;
+import br.com.unicred.crudapp.application.controller.v1.empresa.dto.EmpresaResponse;
 import br.com.unicred.crudapp.domain.model.empresa.Empresa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ public class EmpresaController {
     private final EmpresaService service;
     private final EmpresaConverter converter;
 
-    @Autowired                         //anotação para indicar que os parametros do construtor serão injetados
+    @Autowired
     public EmpresaController(final EmpresaService service, final EmpresaConverter converter) {
         this.service = service;
         this.converter = converter;
@@ -29,11 +29,17 @@ public class EmpresaController {
 
     @PostMapping                    //ResponseEntity representa toda a resposta HTTP: código de status, cabeçalhos e corpo
     public ResponseEntity<EmpresaResponse> salvar(@RequestBody @Valid EmpresaRequest empresaRequest) {
-        Empresa empresa = converter.converterParaEmpresa(empresaRequest);                       //empresa recebe a conversão de empresa request para empresa
-        service.salvar(empresa);                                                                //chama a service para criar empresa e passa a empresa
-        EmpresaResponse empresaResponse = converter.converterParaResponse(empresa);             //empresa response recebe a conversão da empresa que retornou da service
-        return new ResponseEntity<>(empresaResponse, HttpStatus.CREATED);                       //retorna a empresa response
+        Empresa empresa = converter.converterParaEmpresa(empresaRequest);
+        Empresa empresaSalva = service.salvar(empresa);
+        EmpresaResponse empresaResponse = converter.converterParaResponse(empresaSalva);
+        return new ResponseEntity<>(empresaResponse, HttpStatus.CREATED);
     }
+    /*
+    * variável empresa recebe a conversao da empresa request(recebida na requisição) para empresa
+    * chama a service para salvar e passa a empresa
+    * variavel empresa response recebe a conversao de empresa(que veio da service) para empresa response
+    * retorna a empresa response e o status http created
+     */
 
     @PutMapping("/{id}")
     public EmpresaResponse alterar(@PathVariable String id, @RequestBody @Valid EmpresaRequest empresaRequest) {
@@ -43,18 +49,30 @@ public class EmpresaController {
         if (Objects.isNull(empresaAlterada)) {
             throw new EntityNotFoundException("Empresa não encontrada");        //se o id da empresa alterada(recebida da service) for nulo devolver status not found
         }
+
         return converter.converterParaResponse(empresaAlterada);                //se o id for encontrado e a empresa alterada, converte empresa alterada para response
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void excluir(@PathVariable String id) {    //procurar por id e lançar execeção caso não o encontre para excluir?
+    public void excluir(@PathVariable String id) {
+        Empresa empresa = service.buscar(id);
+
+        if (Objects.isNull(empresa)) {
+            throw new EntityNotFoundException("Empresa não encontrada, não será possível excluir"); //204 se conseguir excluir, 404 se não encontrar
+        }
+
         service.excluir(id);
     }
 
     @GetMapping("/{id}")            //@PathVariable é utilizado quando o valor da variável é passada diretamente na URL como um valor que faz parte da URL
     public ResponseEntity<EmpresaResponse> buscar(@PathVariable String id) {
         Empresa empresa = service.buscar(id);                                                       //empresa recebe a empresa buscada na service
+
+        if (Objects.isNull(empresa)) {
+            throw new EntityNotFoundException("Empresa não encontrada");
+        }
+
         return new ResponseEntity<>(converter.converterParaResponse(empresa), HttpStatus.OK);       //retorno: converte a empresa para response
     }
 

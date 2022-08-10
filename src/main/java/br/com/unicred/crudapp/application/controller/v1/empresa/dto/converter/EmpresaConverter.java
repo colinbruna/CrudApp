@@ -1,7 +1,7 @@
-package br.com.unicred.crudapp.application.dto.converter;
+package br.com.unicred.crudapp.application.controller.v1.empresa.dto.converter;
 
-import br.com.unicred.crudapp.application.dto.EmpresaRequest;
-import br.com.unicred.crudapp.application.dto.EmpresaResponse;
+import br.com.unicred.crudapp.application.controller.v1.empresa.dto.EmpresaRequest;
+import br.com.unicred.crudapp.application.controller.v1.empresa.dto.EmpresaResponse;
 import br.com.unicred.crudapp.domain.model.empresa.Empresa;
 
 import java.util.List;

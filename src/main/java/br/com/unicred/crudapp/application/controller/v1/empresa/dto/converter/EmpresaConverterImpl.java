@@ -1,7 +1,7 @@
-package br.com.unicred.crudapp.application.dto.converter;
+package br.com.unicred.crudapp.application.controller.v1.empresa.dto.converter;
 
-import br.com.unicred.crudapp.application.dto.EmpresaRequest;
-import br.com.unicred.crudapp.application.dto.EmpresaResponse;
+import br.com.unicred.crudapp.application.controller.v1.empresa.dto.EmpresaRequest;
+import br.com.unicred.crudapp.application.controller.v1.empresa.dto.EmpresaResponse;
 import br.com.unicred.crudapp.domain.model.empresa.Empresa;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +21,8 @@ public class EmpresaConverterImpl implements EmpresaConverter {
     }
 
     @Override
-    public Empresa converterParaEmpresa(final EmpresaRequest request) {
-        return mapper.map(request, Empresa.class);
+    public Empresa converterParaEmpresa(final EmpresaRequest empresaRequest) {
+        return mapper.map(empresaRequest, Empresa.class);
     }
     @Override
     public EmpresaResponse converterParaResponse(final Empresa empresa) {
@@ -33,7 +33,7 @@ public class EmpresaConverterImpl implements EmpresaConverter {
     public List<EmpresaResponse> converterParaListaResponse(final List<Empresa> empresas) {
         List<EmpresaResponse> empresasResponse = new ArrayList<>();
 
-        for(Empresa empresa : empresas) {
+        for (Empresa empresa : empresas) {
             empresasResponse.add(converterParaResponse(empresa));
         }
 
