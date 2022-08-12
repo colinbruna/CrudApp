@@ -28,8 +28,8 @@ public class ApplicationControllerAdvice {
         this.messageSource = messageSource;
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)  //erros de validação de formulário
-    @ResponseStatus(code = HttpStatus.BAD_REQUEST) //prenchimento incorreto do formulário de criar/alterar empresa
+    @ExceptionHandler(MethodArgumentNotValidException.class)  //erros de validação de formulário prenchimento incorreto do formulário de criar/alterar
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public List<ErroDeFormulario> handle(final MethodArgumentNotValidException exception) {
         List<ErroDeFormulario> dto = new ArrayList<>();
 

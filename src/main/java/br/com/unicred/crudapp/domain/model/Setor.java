@@ -1,10 +1,10 @@
-package br.com.unicred.crudapp.domain.model.setor;
+package br.com.unicred.crudapp.domain.model;
 
 public class Setor {
 
+    private String idEmpresa;
     private String nome;
     private String descricao;
-    private String idEmpresa;
 
     public Setor() {
     }

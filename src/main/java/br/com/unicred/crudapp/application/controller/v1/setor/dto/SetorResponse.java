@@ -2,9 +2,9 @@ package br.com.unicred.crudapp.application.controller.v1.setor.dto;
 
 public class SetorResponse {
 
+    private String idEmpresa;
     private String nome;
     private String descricao;
-    private String idEmpresa;
 
     public SetorResponse() {
     }

@@ -1,4 +1,4 @@
-package br.com.unicred.crudapp.domain.model.empresa;
+package br.com.unicred.crudapp.domain.model;
 
 public class Empresa {
 

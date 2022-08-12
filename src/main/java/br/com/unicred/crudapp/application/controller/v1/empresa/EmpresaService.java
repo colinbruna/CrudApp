@@ -1,6 +1,6 @@
 package br.com.unicred.crudapp.application.controller.v1.empresa;
 
-import br.com.unicred.crudapp.domain.model.empresa.Empresa;
+import br.com.unicred.crudapp.domain.model.Empresa;
 
 import java.util.List;
 

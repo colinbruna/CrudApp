@@ -1,6 +1,6 @@
 package br.com.unicred.crudapp.infraestructure.entity.setor.converter;
 
-import br.com.unicred.crudapp.domain.model.setor.Setor;
+import br.com.unicred.crudapp.domain.model.Setor;
 import br.com.unicred.crudapp.infraestructure.entity.setor.SetorEntity;
 
 import java.util.List;

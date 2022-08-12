@@ -9,9 +9,9 @@ public class SetorEntity {
 
     @Id
     private ObjectId id;
+    private String idEmpresa;
     private String nome;
     private String descricao;
-    private String idEmpresa;
 
     public SetorEntity() {
     }

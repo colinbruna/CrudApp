@@ -1,18 +1,18 @@
 package br.com.unicred.crudapp.infraestructure.adapter;
 
-import br.com.unicred.crudapp.domain.model.setor.Setor;
+import br.com.unicred.crudapp.domain.model.Setor;
 import br.com.unicred.crudapp.domain.service.setor.SetorAdapter;
 import br.com.unicred.crudapp.infraestructure.entity.setor.SetorEntity;
 import br.com.unicred.crudapp.infraestructure.entity.setor.converter.SetorEntityConverter;
 import br.com.unicred.crudapp.infraestructure.repository.SetorRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Service
 public class SetorAdapterGatewayImpl implements SetorAdapter {
 
     private final SetorEntityConverter converter;

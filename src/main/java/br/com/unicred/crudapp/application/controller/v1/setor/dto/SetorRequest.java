@@ -4,14 +4,14 @@ import javax.validation.constraints.NotBlank;
 
 public class SetorRequest {
 
+    @NotBlank(message = "Id da empresa é um campo obrigatório")
+    private String idEmpresa;
+
     @NotBlank(message = "Nome é um campo obrigatório")
     private String nome;
 
     @NotBlank(message = "Descrição é um campo obrigatório")
     private String descricao;
-
-    @NotBlank(message = "Id da empresa é um campo obrigatório")
-    private String idEmpresa;
 
     public SetorRequest() {
     }

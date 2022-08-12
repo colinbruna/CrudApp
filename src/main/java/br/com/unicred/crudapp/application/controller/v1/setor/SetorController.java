@@ -4,7 +4,7 @@ import br.com.unicred.crudapp.application.controller.v1.exception.EntityNotFound
 import br.com.unicred.crudapp.application.controller.v1.setor.dto.SetorRequest;
 import br.com.unicred.crudapp.application.controller.v1.setor.dto.SetorResponse;
 import br.com.unicred.crudapp.application.controller.v1.setor.dto.converter.SetorConverter;
-import br.com.unicred.crudapp.domain.model.setor.Setor;
+import br.com.unicred.crudapp.domain.model.Setor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,11 +54,11 @@ public class SetorController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void excluir(@PathVariable final String id) {
+    public void excluir(@PathVariable String id) {
         Setor setor = service.buscar(id);
 
         if (Objects.isNull(setor)) {
-            throw new EntityNotFoundException("Setor não encontrado, não será possível excluir");
+            throw new EntityNotFoundException("Setor não encontrado");
         }
 
         service.excluir(id);

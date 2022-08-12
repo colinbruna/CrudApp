@@ -1,6 +1,6 @@
 package br.com.unicred.crudapp.domain.service.setor;
 
-import br.com.unicred.crudapp.domain.model.setor.Setor;
+import br.com.unicred.crudapp.domain.model.Setor;
 
 import java.util.List;
 

@@ -4,7 +4,7 @@ import br.com.unicred.crudapp.application.controller.v1.exception.EntityNotFound
 import br.com.unicred.crudapp.application.controller.v1.empresa.dto.converter.EmpresaConverter;
 import br.com.unicred.crudapp.application.controller.v1.empresa.dto.EmpresaRequest;
 import br.com.unicred.crudapp.application.controller.v1.empresa.dto.EmpresaResponse;
-import br.com.unicred.crudapp.domain.model.empresa.Empresa;
+import br.com.unicred.crudapp.domain.model.Empresa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,7 +59,7 @@ public class EmpresaController {
         Empresa empresa = service.buscar(id);
 
         if (Objects.isNull(empresa)) {
-            throw new EntityNotFoundException("Empresa não encontrada, não será possível excluir"); //204 se conseguir excluir, 404 se não encontrar
+            throw new EntityNotFoundException("Empresa não encontrada, não será possível excluir");
         }
 
         service.excluir(id);

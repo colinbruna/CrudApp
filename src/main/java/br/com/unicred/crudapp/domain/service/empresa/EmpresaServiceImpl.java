@@ -2,7 +2,7 @@ package br.com.unicred.crudapp.domain.service.empresa;
 
 import br.com.unicred.crudapp.application.controller.v1.empresa.EmpresaService;
 import br.com.unicred.crudapp.domain.service.exception.BusinessException;
-import br.com.unicred.crudapp.domain.model.empresa.Empresa;
+import br.com.unicred.crudapp.domain.model.Empresa;
 import br.com.unicred.crudapp.infraestructure.client.ViaCepClient;
 import br.com.unicred.crudapp.infraestructure.client.ViaCepResponse;
 import org.springframework.beans.factory.annotation.Autowired;

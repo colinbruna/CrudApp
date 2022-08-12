@@ -1,6 +1,6 @@
 package br.com.unicred.crudapp.infraestructure.adapter;
 
-import br.com.unicred.crudapp.domain.model.empresa.Empresa;
+import br.com.unicred.crudapp.domain.model.Empresa;
 import br.com.unicred.crudapp.domain.service.empresa.EmpresaAdapter;
 import br.com.unicred.crudapp.infraestructure.entity.empresa.EmpresaEntity;
 import br.com.unicred.crudapp.infraestructure.entity.empresa.converter.EmpresaEntityConverter;
