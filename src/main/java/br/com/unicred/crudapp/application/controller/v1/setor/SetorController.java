@@ -4,7 +4,7 @@ import br.com.unicred.crudapp.application.controller.v1.exception.EntityNotFound
 import br.com.unicred.crudapp.application.controller.v1.setor.dto.SetorRequest;
 import br.com.unicred.crudapp.application.controller.v1.setor.dto.SetorResponse;
 import br.com.unicred.crudapp.application.controller.v1.setor.dto.converter.SetorConverter;
-import br.com.unicred.crudapp.domain.model.Setor;
+import br.com.unicred.crudapp.domain.model.setor.Setor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,23 +41,19 @@ public class SetorController {
     */
 
     @PutMapping("/{id}")
-    public SetorResponse alterar(@PathVariable String id, @RequestBody @Valid SetorRequest setorRequest) {
+    public ResponseEntity<SetorResponse> alterar(@PathVariable String id, @RequestBody @Valid SetorRequest setorRequest) {
         Setor setor = converter.converterParaSetor(setorRequest);
         Setor setorAlterado = service.alterar(id, setor);
 
-        if (Objects.isNull(setorAlterado)) {
-            throw new EntityNotFoundException("Setor não encontrado");
-        }
-
-        return converter.converterParaResponse(setorAlterado);
+        return setorAlterado == null?
+                ResponseEntity.notFound().build():
+                ResponseEntity.ok(converter.converterParaResponse(setorAlterado));
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public void excluir(@PathVariable String id) {
-        Setor setor = service.buscar(id);
-
-        if (Objects.isNull(setor)) {
+        if (Objects.isNull(service.buscar(id))) {
             throw new EntityNotFoundException("Setor não encontrado");
         }
 
@@ -68,11 +64,9 @@ public class SetorController {
     public ResponseEntity<SetorResponse> buscar(@PathVariable String id) {
         Setor setor = service.buscar(id);
 
-        if (Objects.isNull(setor)) {
-            throw new EntityNotFoundException("Setor não encontrado");
-        }
-
-        return new ResponseEntity<>(converter.converterParaResponse(setor), HttpStatus.OK);
+        return setor == null?
+                ResponseEntity.notFound().build():
+                ResponseEntity.ok(converter.converterParaResponse(setor));
     }
 
     @GetMapping

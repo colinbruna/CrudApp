@@ -4,8 +4,7 @@ import br.com.unicred.crudapp.application.controller.v1.exception.EntityNotFound
 import br.com.unicred.crudapp.application.controller.v1.funcionario.dto.FuncionarioRequest;
 import br.com.unicred.crudapp.application.controller.v1.funcionario.dto.FuncionarioResponse;
 import br.com.unicred.crudapp.application.controller.v1.funcionario.dto.converter.FuncionarioConverter;
-import br.com.unicred.crudapp.domain.model.Funcionario;
-import org.bson.types.ObjectId;
+import br.com.unicred.crudapp.domain.model.funcionario.Funcionario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,23 +36,19 @@ public class FuncionarioController {
     }
 
     @PutMapping("/{id}")
-    public FuncionarioResponse alterar(@PathVariable String id, @RequestBody @Valid FuncionarioRequest funcionarioRequest) {
+    public ResponseEntity<FuncionarioResponse> alterar(@PathVariable String id, @RequestBody @Valid FuncionarioRequest funcionarioRequest) {
         Funcionario funcionario = converter.converterParaFuncionario(funcionarioRequest);
         Funcionario funcionarioAlterado = service.alterar(id, funcionario);
 
-        if (Objects.isNull(funcionarioAlterado)) {
-            throw new EntityNotFoundException("Funcionário não encontrado");
-        }
-
-        return converter.converterParaResponse(funcionarioAlterado);
+        return funcionario == null?
+                ResponseEntity.notFound().build():
+                ResponseEntity.ok(converter.converterParaResponse(funcionarioAlterado));
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public void excluir(@PathVariable String id) {
-        Funcionario funcionario = service.buscar(id);
-
-        if (Objects.isNull(funcionario)) {
+        if (Objects.isNull(service.buscar(id))) {
             throw new EntityNotFoundException("Funcionário não encontrado");
         }
 
@@ -61,14 +56,12 @@ public class FuncionarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FuncionarioResponse> buscar (@PathVariable String id) {
+    public ResponseEntity<FuncionarioResponse> buscar(@PathVariable String id) {
         Funcionario funcionario = service.buscar(id);
 
-        if (Objects.isNull(funcionario)) {
-            throw new EntityNotFoundException("Funcionário não encontrado");
-        }
-
-        return new ResponseEntity<>(converter.converterParaResponse(funcionario), HttpStatus.OK);
+        return funcionario == null?
+                ResponseEntity.notFound().build():
+                ResponseEntity.ok(converter.converterParaResponse(funcionario));
     }
 
     @GetMapping

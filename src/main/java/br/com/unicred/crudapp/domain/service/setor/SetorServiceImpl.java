@@ -3,8 +3,8 @@ package br.com.unicred.crudapp.domain.service.setor;
 import br.com.unicred.crudapp.application.controller.v1.empresa.EmpresaService;
 import br.com.unicred.crudapp.application.controller.v1.exception.EntityNotFoundException;
 import br.com.unicred.crudapp.application.controller.v1.setor.SetorService;
-import br.com.unicred.crudapp.domain.model.Empresa;
-import br.com.unicred.crudapp.domain.model.Setor;
+import br.com.unicred.crudapp.domain.model.empresa.Empresa;
+import br.com.unicred.crudapp.domain.model.setor.Setor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -2,7 +2,7 @@ package br.com.unicred.crudapp.application.controller.v1.funcionario.dto.convert
 
 import br.com.unicred.crudapp.application.controller.v1.funcionario.dto.FuncionarioRequest;
 import br.com.unicred.crudapp.application.controller.v1.funcionario.dto.FuncionarioResponse;
-import br.com.unicred.crudapp.domain.model.Funcionario;
+import br.com.unicred.crudapp.domain.model.funcionario.Funcionario;
 
 import java.util.List;
 

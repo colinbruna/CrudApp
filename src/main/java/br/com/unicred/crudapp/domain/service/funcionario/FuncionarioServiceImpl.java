@@ -3,8 +3,8 @@ package br.com.unicred.crudapp.domain.service.funcionario;
 import br.com.unicred.crudapp.application.controller.v1.exception.EntityNotFoundException;
 import br.com.unicred.crudapp.application.controller.v1.funcionario.FuncionarioService;
 import br.com.unicred.crudapp.application.controller.v1.setor.SetorService;
-import br.com.unicred.crudapp.domain.model.Funcionario;
-import br.com.unicred.crudapp.domain.model.Setor;
+import br.com.unicred.crudapp.domain.model.funcionario.Funcionario;
+import br.com.unicred.crudapp.domain.model.setor.Setor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

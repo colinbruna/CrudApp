@@ -1,6 +1,6 @@
-package br.com.unicred.crudapp.infraestructure.entity.funcionario.converter;
+package br.com.unicred.crudapp.infraestructure.adapter.funcionario.converter;
 
-import br.com.unicred.crudapp.domain.model.Funcionario;
+import br.com.unicred.crudapp.domain.model.funcionario.Funcionario;
 import br.com.unicred.crudapp.infraestructure.entity.funcionario.FuncionarioEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,9 +2,10 @@ package br.com.unicred.crudapp.domain.service.empresa;
 
 import br.com.unicred.crudapp.application.controller.v1.empresa.EmpresaService;
 import br.com.unicred.crudapp.domain.service.exception.BusinessException;
-import br.com.unicred.crudapp.domain.model.Empresa;
+import br.com.unicred.crudapp.domain.model.empresa.Empresa;
 import br.com.unicred.crudapp.infraestructure.client.ViaCepClient;
 import br.com.unicred.crudapp.infraestructure.client.ViaCepResponse;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,15 +38,22 @@ public class EmpresaServiceImpl implements EmpresaService {
         return cep.matches("\\d{8}");                              //avalia se o cep enviado combina com o padrão exigido
     }
 
+    private void validar(final Empresa empresa) {
+        if (Objects.isNull(empresa.getNome())) {
+            throw new BusinessException("Nome", "Nome não informado");
+        }
+        validarCep(empresa);
+    }
+
     @Override
     public Empresa salvar(final Empresa empresa) {
-        validarCep(empresa);                                //somente as regras de negócio, nesse caso por enquanto só estou validando o cep
-        return adapter.salvar(empresa);               //chama a adapter service para criar a empresa
+        validar(empresa);                                //somente as regras de negócio, nesse caso por enquanto só estou validando o cep
+        return adapter.salvar(empresa);                  //chama a adapter service para criar a empresa
     }
 
     @Override
     public Empresa alterar(final String id, final Empresa empresa) {
-        validarCep(empresa);
+        validar(empresa);
         return adapter.alterar(id, empresa);
     }
 
@@ -55,9 +63,7 @@ public class EmpresaServiceImpl implements EmpresaService {
     }
 
     @Override
-    public Empresa buscar(final String id) {
-        return adapter.buscar(id);
-    }
+    public Empresa buscar(final String id) { return adapter.buscar(id); }
 
     @Override
     public List<Empresa> listar() {

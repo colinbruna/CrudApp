@@ -1,4 +1,4 @@
-package br.com.unicred.crudapp.infraestructure.repository;
+package br.com.unicred.crudapp.infraestructure.repository.funcionario;
 
 import br.com.unicred.crudapp.infraestructure.entity.funcionario.FuncionarioEntity;
 import org.bson.types.ObjectId;

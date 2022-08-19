@@ -1,4 +1,4 @@
-package br.com.unicred.crudapp.infraestructure.repository;
+package br.com.unicred.crudapp.infraestructure.repository.setor;
 
 import br.com.unicred.crudapp.infraestructure.entity.setor.SetorEntity;
 import org.bson.types.ObjectId;

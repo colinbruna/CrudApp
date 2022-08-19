@@ -1,10 +1,10 @@
-package br.com.unicred.crudapp.infraestructure.adapter;
+package br.com.unicred.crudapp.infraestructure.adapter.empresa;
 
-import br.com.unicred.crudapp.domain.model.Empresa;
+import br.com.unicred.crudapp.domain.model.empresa.Empresa;
 import br.com.unicred.crudapp.domain.service.empresa.EmpresaAdapter;
 import br.com.unicred.crudapp.infraestructure.entity.empresa.EmpresaEntity;
-import br.com.unicred.crudapp.infraestructure.entity.empresa.converter.EmpresaEntityConverter;
-import br.com.unicred.crudapp.infraestructure.repository.EmpresaRepository;
+import br.com.unicred.crudapp.infraestructure.adapter.empresa.converter.EmpresaEntityConverter;
+import br.com.unicred.crudapp.infraestructure.repository.empresa.EmpresaRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

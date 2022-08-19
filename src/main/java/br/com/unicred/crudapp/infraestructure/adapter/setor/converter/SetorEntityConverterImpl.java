@@ -1,6 +1,6 @@
-package br.com.unicred.crudapp.infraestructure.entity.setor.converter;
+package br.com.unicred.crudapp.infraestructure.adapter.setor.converter;
 
-import br.com.unicred.crudapp.domain.model.Setor;
+import br.com.unicred.crudapp.domain.model.setor.Setor;
 import br.com.unicred.crudapp.infraestructure.entity.setor.SetorEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

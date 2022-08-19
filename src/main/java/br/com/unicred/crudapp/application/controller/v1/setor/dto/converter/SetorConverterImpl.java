@@ -2,7 +2,7 @@ package br.com.unicred.crudapp.application.controller.v1.setor.dto.converter;
 
 import br.com.unicred.crudapp.application.controller.v1.setor.dto.SetorRequest;
 import br.com.unicred.crudapp.application.controller.v1.setor.dto.SetorResponse;
-import br.com.unicred.crudapp.domain.model.Setor;
+import br.com.unicred.crudapp.domain.model.setor.Setor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

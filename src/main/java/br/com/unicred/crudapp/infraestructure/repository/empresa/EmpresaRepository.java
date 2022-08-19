@@ -1,4 +1,4 @@
-package br.com.unicred.crudapp.infraestructure.repository;
+package br.com.unicred.crudapp.infraestructure.repository.empresa;
 
 import br.com.unicred.crudapp.infraestructure.entity.empresa.EmpresaEntity;
 import org.bson.types.ObjectId;

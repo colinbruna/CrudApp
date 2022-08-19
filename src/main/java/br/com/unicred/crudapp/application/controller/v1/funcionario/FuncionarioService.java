@@ -1,7 +1,6 @@
 package br.com.unicred.crudapp.application.controller.v1.funcionario;
 
-import br.com.unicred.crudapp.domain.model.Funcionario;
-import org.bson.types.ObjectId;
+import br.com.unicred.crudapp.domain.model.funcionario.Funcionario;
 
 import java.util.List;
 

@@ -1,10 +1,10 @@
-package br.com.unicred.crudapp.infraestructure.adapter;
+package br.com.unicred.crudapp.infraestructure.adapter.setor;
 
-import br.com.unicred.crudapp.domain.model.Setor;
+import br.com.unicred.crudapp.domain.model.setor.Setor;
 import br.com.unicred.crudapp.domain.service.setor.SetorAdapter;
 import br.com.unicred.crudapp.infraestructure.entity.setor.SetorEntity;
-import br.com.unicred.crudapp.infraestructure.entity.setor.converter.SetorEntityConverter;
-import br.com.unicred.crudapp.infraestructure.repository.SetorRepository;
+import br.com.unicred.crudapp.infraestructure.adapter.setor.converter.SetorEntityConverter;
+import br.com.unicred.crudapp.infraestructure.repository.setor.SetorRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

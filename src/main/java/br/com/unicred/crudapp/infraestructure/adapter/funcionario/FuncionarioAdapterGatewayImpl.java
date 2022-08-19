@@ -1,10 +1,10 @@
-package br.com.unicred.crudapp.infraestructure.adapter;
+package br.com.unicred.crudapp.infraestructure.adapter.funcionario;
 
-import br.com.unicred.crudapp.domain.model.Funcionario;
+import br.com.unicred.crudapp.domain.model.funcionario.Funcionario;
 import br.com.unicred.crudapp.domain.service.funcionario.FuncionarioAdapter;
 import br.com.unicred.crudapp.infraestructure.entity.funcionario.FuncionarioEntity;
-import br.com.unicred.crudapp.infraestructure.entity.funcionario.converter.FuncionarioEntityConverter;
-import br.com.unicred.crudapp.infraestructure.repository.FuncionarioRepository;
+import br.com.unicred.crudapp.infraestructure.adapter.funcionario.converter.FuncionarioEntityConverter;
+import br.com.unicred.crudapp.infraestructure.repository.funcionario.FuncionarioRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

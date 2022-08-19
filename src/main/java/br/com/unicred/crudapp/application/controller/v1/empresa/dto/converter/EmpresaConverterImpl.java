@@ -2,7 +2,7 @@ package br.com.unicred.crudapp.application.controller.v1.empresa.dto.converter;
 
 import br.com.unicred.crudapp.application.controller.v1.empresa.dto.EmpresaRequest;
 import br.com.unicred.crudapp.application.controller.v1.empresa.dto.EmpresaResponse;
-import br.com.unicred.crudapp.domain.model.Empresa;
+import br.com.unicred.crudapp.domain.model.empresa.Empresa;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

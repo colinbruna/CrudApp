@@ -4,7 +4,7 @@ import br.com.unicred.crudapp.application.controller.v1.exception.EntityNotFound
 import br.com.unicred.crudapp.application.controller.v1.empresa.dto.converter.EmpresaConverter;
 import br.com.unicred.crudapp.application.controller.v1.empresa.dto.EmpresaRequest;
 import br.com.unicred.crudapp.application.controller.v1.empresa.dto.EmpresaResponse;
-import br.com.unicred.crudapp.domain.model.Empresa;
+import br.com.unicred.crudapp.domain.model.empresa.Empresa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,23 +42,19 @@ public class EmpresaController {
      */
 
     @PutMapping("/{id}")
-    public EmpresaResponse alterar(@PathVariable String id, @RequestBody @Valid EmpresaRequest empresaRequest) {
+    public ResponseEntity<EmpresaResponse> alterar(@PathVariable String id, @RequestBody @Valid EmpresaRequest empresaRequest) {
         Empresa empresa = converter.converterParaEmpresa(empresaRequest);           //empresa recebe a conversão de empresa request para empresa
         Empresa empresaAlterada = service.alterar(id,empresa);                      //empresa alterada recebe uma empresa da service
 
-        if (Objects.isNull(empresaAlterada)) {
-            throw new EntityNotFoundException("Empresa não encontrada");        //se o id da empresa alterada(recebida da service) for nulo devolver status not found
-        }
-
-        return converter.converterParaResponse(empresaAlterada);                //se o id for encontrado e a empresa alterada, converte empresa alterada para response
+        return empresaAlterada == null?
+                ResponseEntity.notFound().build():
+                ResponseEntity.ok(converter.converterParaResponse(empresaAlterada));
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public void excluir(@PathVariable String id) {
-        Empresa empresa = service.buscar(id);
-
-        if (Objects.isNull(empresa)) {
+        if (Objects.isNull(service.buscar(id))) {
             throw new EntityNotFoundException("Empresa não encontrada, não será possível excluir");
         }
 
@@ -69,11 +65,9 @@ public class EmpresaController {
     public ResponseEntity<EmpresaResponse> buscar(@PathVariable String id) {
         Empresa empresa = service.buscar(id);                                                       //empresa recebe a empresa buscada na service
 
-        if (Objects.isNull(empresa)) {
-            throw new EntityNotFoundException("Empresa não encontrada");
-        }
-
-        return new ResponseEntity<>(converter.converterParaResponse(empresa), HttpStatus.OK);       //retorno: converte a empresa para response
+        return empresa == null?
+                ResponseEntity.notFound().build():
+                ResponseEntity.ok(converter.converterParaResponse(empresa));
     }
 
     @GetMapping
