@@ -1,6 +1,5 @@
 package br.com.unicred.crudapp.application.controller.v1.funcionario;
 
-import br.com.unicred.crudapp.application.controller.v1.exception.EntityNotFoundException;
 import br.com.unicred.crudapp.application.controller.v1.funcionario.dto.FuncionarioRequest;
 import br.com.unicred.crudapp.application.controller.v1.funcionario.dto.FuncionarioResponse;
 import br.com.unicred.crudapp.application.controller.v1.funcionario.dto.converter.FuncionarioConverter;
@@ -40,19 +39,19 @@ public class FuncionarioController {
         Funcionario funcionario = converter.converterParaFuncionario(funcionarioRequest);
         Funcionario funcionarioAlterado = service.alterar(id, funcionario);
 
-        return funcionario == null?
+        return funcionarioAlterado == null?
                 ResponseEntity.notFound().build():
                 ResponseEntity.ok(converter.converterParaResponse(funcionarioAlterado));
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public void excluir(@PathVariable String id) {
+    public ResponseEntity excluir(@PathVariable String id) {
         if (Objects.isNull(service.buscar(id))) {
-            throw new EntityNotFoundException("Funcionário não encontrado");
+            return ResponseEntity.notFound().build();
         }
 
         service.exluir(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}")
@@ -65,15 +64,14 @@ public class FuncionarioController {
     }
 
     @GetMapping
-    public List<FuncionarioResponse> listar() {
+    public ResponseEntity<List<FuncionarioResponse>> listar() {
         List<Funcionario> funcionarios = service.listar();
-        return converter.converterParaListaResponse(funcionarios);
+        return ResponseEntity.ok(converter.converterParaListaResponse(funcionarios));
     }
 
     @GetMapping("/setor/{idSetor}")
-    public List<FuncionarioResponse> listarPorSetor(@PathVariable String idSetor) {
+    public ResponseEntity<List<FuncionarioResponse>> listarPorSetor(@PathVariable String idSetor) {
         List<Funcionario> funcionarios = service.listarPorSetor(idSetor);
-        return converter.converterParaListaResponse(funcionarios);
+        return ResponseEntity.ok(converter.converterParaListaResponse(funcionarios));
     }
-
 }

@@ -8,7 +8,7 @@ public class Empresa {
     private String cnpj;
     private String email;
     private String telefone;
-    private String cep;         //endereço baseado nos dados do web service dos correios
+    private String cep;         //endereco baseado nos dados do web service dos correios
     private String logradouro;
     private String complemento;
     private String bairro;

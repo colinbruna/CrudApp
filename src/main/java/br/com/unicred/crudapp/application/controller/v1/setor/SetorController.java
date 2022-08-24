@@ -1,6 +1,5 @@
 package br.com.unicred.crudapp.application.controller.v1.setor;
 
-import br.com.unicred.crudapp.application.controller.v1.exception.EntityNotFoundException;
 import br.com.unicred.crudapp.application.controller.v1.setor.dto.SetorRequest;
 import br.com.unicred.crudapp.application.controller.v1.setor.dto.SetorResponse;
 import br.com.unicred.crudapp.application.controller.v1.setor.dto.converter.SetorConverter;
@@ -51,13 +50,13 @@ public class SetorController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public void excluir(@PathVariable String id) {
+    public ResponseEntity excluir(@PathVariable String id) {
         if (Objects.isNull(service.buscar(id))) {
-            throw new EntityNotFoundException("Setor não encontrado");
+            return ResponseEntity.notFound().build();
         }
 
         service.excluir(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}")
@@ -70,8 +69,8 @@ public class SetorController {
     }
 
     @GetMapping
-    public List<SetorResponse> listar() {
+    public ResponseEntity<List<SetorResponse>> listar() {
         List<Setor> setores = service.listar();
-        return converter.converterParaListaResponse(setores);
+        return ResponseEntity.ok(converter.converterParaListaResponse(setores));
     }
 }

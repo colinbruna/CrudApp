@@ -21,12 +21,16 @@ public class FuncionarioEntityConverterImpl implements FuncionarioEntityConverte
 
     @Override
     public FuncionarioEntity converterParaEntity(Funcionario funcionario) {
-        return mapper.map(funcionario, FuncionarioEntity.class);
+        return funcionario == null?
+                null:
+                mapper.map(funcionario, FuncionarioEntity.class);
     }
 
     @Override
     public Funcionario converterParaFuncionario(FuncionarioEntity funcionarioEntity) {
-        return mapper.map(funcionarioEntity, Funcionario.class);
+        return funcionarioEntity == null?
+                null:
+                mapper.map(funcionarioEntity, Funcionario.class);
     }
 
     @Override

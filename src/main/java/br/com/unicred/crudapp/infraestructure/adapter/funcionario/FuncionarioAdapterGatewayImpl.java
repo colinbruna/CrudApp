@@ -2,8 +2,8 @@ package br.com.unicred.crudapp.infraestructure.adapter.funcionario;
 
 import br.com.unicred.crudapp.domain.model.funcionario.Funcionario;
 import br.com.unicred.crudapp.domain.service.funcionario.FuncionarioAdapter;
-import br.com.unicred.crudapp.infraestructure.entity.funcionario.FuncionarioEntity;
 import br.com.unicred.crudapp.infraestructure.adapter.funcionario.converter.FuncionarioEntityConverter;
+import br.com.unicred.crudapp.infraestructure.entity.funcionario.FuncionarioEntity;
 import br.com.unicred.crudapp.infraestructure.repository.funcionario.FuncionarioRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,13 +51,9 @@ public class FuncionarioAdapterGatewayImpl implements FuncionarioAdapter {
 
     @Override
     public Funcionario buscar(final String id) {
-        Optional<FuncionarioEntity> optFuncionarioEntity = repository.findById(new ObjectId(id));
+        Optional<FuncionarioEntity> optionalFuncionarioEntity = repository.findById(new ObjectId(id));       //Optional: é usado basicamente como checagem se um objeto está presente ou não na aplicação. Vai evitar as exceções caso retorne dados nulos.
 
-        if (optFuncionarioEntity.isEmpty()) {
-            return null;
-        }
-
-        return converter.converterParaFuncionario(optFuncionarioEntity.get());
+        return optionalFuncionarioEntity.map(converter::converterParaFuncionario).orElse(null);          //Se um valor estiver presente, retornará o resultado da aplicação da função de mapeamento, caso contrário, retornará um opcional vazio
     }
 
     @Override

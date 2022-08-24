@@ -48,9 +48,7 @@ public class SetorServiceImpl implements SetorService {
     }
 
     @Override
-    public Setor buscar(final String id) {
-        return adapter.buscar(id);
-    }
+    public Setor buscar(final String id) { return adapter.buscar(id); }
 
     @Override
     public List<Setor> listar() {

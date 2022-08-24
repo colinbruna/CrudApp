@@ -1,9 +1,8 @@
 package br.com.unicred.crudapp.application.controller.v1.empresa;
 
-import br.com.unicred.crudapp.application.controller.v1.exception.EntityNotFoundException;
-import br.com.unicred.crudapp.application.controller.v1.empresa.dto.converter.EmpresaConverter;
 import br.com.unicred.crudapp.application.controller.v1.empresa.dto.EmpresaRequest;
 import br.com.unicred.crudapp.application.controller.v1.empresa.dto.EmpresaResponse;
+import br.com.unicred.crudapp.application.controller.v1.empresa.dto.converter.EmpresaConverter;
 import br.com.unicred.crudapp.domain.model.empresa.Empresa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,24 +26,18 @@ public class EmpresaController {
         this.converter = converter;
     }
 
-    @PostMapping                    //ResponseEntity representa toda a resposta HTTP: código de status, cabeçalhos e corpo
+    @PostMapping
     public ResponseEntity<EmpresaResponse> salvar(@RequestBody @Valid EmpresaRequest empresaRequest) {
         Empresa empresa = converter.converterParaEmpresa(empresaRequest);
         Empresa empresaSalva = service.salvar(empresa);
         EmpresaResponse empresaResponse = converter.converterParaResponse(empresaSalva);
         return new ResponseEntity<>(empresaResponse, HttpStatus.CREATED);
     }
-    /*
-    * variável empresa recebe a conversao da empresa request(recebida na requisição) para empresa
-    * chama a service para salvar e passa a empresa
-    * variavel empresa response recebe a conversao de empresa(que veio da service) para empresa response
-    * retorna a empresa response e o status http created
-     */
 
     @PutMapping("/{id}")
     public ResponseEntity<EmpresaResponse> alterar(@PathVariable String id, @RequestBody @Valid EmpresaRequest empresaRequest) {
-        Empresa empresa = converter.converterParaEmpresa(empresaRequest);           //empresa recebe a conversão de empresa request para empresa
-        Empresa empresaAlterada = service.alterar(id,empresa);                      //empresa alterada recebe uma empresa da service
+        Empresa empresa = converter.converterParaEmpresa(empresaRequest);
+        Empresa empresaAlterada = service.alterar(id,empresa);
 
         return empresaAlterada == null?
                 ResponseEntity.notFound().build():
@@ -52,18 +45,18 @@ public class EmpresaController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public void excluir(@PathVariable String id) {
+    public ResponseEntity<EmpresaResponse> excluir(@PathVariable String id) {
         if (Objects.isNull(service.buscar(id))) {
-            throw new EntityNotFoundException("Empresa não encontrada, não será possível excluir");
+            return ResponseEntity.notFound().build();
         }
 
         service.excluir(id);
+        return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/{id}")            //@PathVariable é utilizado quando o valor da variável é passada diretamente na URL como um valor que faz parte da URL
+    @GetMapping("/{id}")
     public ResponseEntity<EmpresaResponse> buscar(@PathVariable String id) {
-        Empresa empresa = service.buscar(id);                                                       //empresa recebe a empresa buscada na service
+        Empresa empresa = service.buscar(id);
 
         return empresa == null?
                 ResponseEntity.notFound().build():
@@ -71,8 +64,8 @@ public class EmpresaController {
     }
 
     @GetMapping
-    public List<EmpresaResponse> listar() {
-        List<Empresa> empresas = service.listar();                         //lista empresas recebe a lista de empresas chamada na service
-        return converter.converterParaListaResponse(empresas);             //retorno: converte a lista de empresas para uma lista de empresas response
+    public ResponseEntity<List<EmpresaResponse>> listar() {
+        List<Empresa> empresas = service.listar();
+        return ResponseEntity.ok(converter.converterParaListaResponse(empresas));
     }
 }

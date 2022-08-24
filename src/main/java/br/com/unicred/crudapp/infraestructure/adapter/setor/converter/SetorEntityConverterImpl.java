@@ -21,12 +21,16 @@ public class SetorEntityConverterImpl implements SetorEntityConverter{
 
     @Override
     public SetorEntity converterParaEntity(Setor setor) {
-        return mapper.map(setor, SetorEntity.class);
+        return setor == null?
+                null:
+                mapper.map(setor, SetorEntity.class);
     }
 
     @Override
     public Setor converterParaSetor(SetorEntity setorEntity) {
-        return mapper.map(setorEntity, Setor.class);
+        return setorEntity == null?
+                null:
+                mapper.map(setorEntity, Setor.class);
     }
 
     @Override

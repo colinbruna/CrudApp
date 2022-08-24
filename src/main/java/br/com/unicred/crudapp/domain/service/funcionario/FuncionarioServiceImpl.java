@@ -48,9 +48,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     }
 
     @Override
-    public Funcionario buscar(final String id) {
-        return adapter.buscar(id);
-    }
+    public Funcionario buscar(final String id) { return adapter.buscar(id); }
 
     @Override
     public List<Funcionario> listar() {

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component                      //representa um componente (bean) que é detectado automaticamente
+@Component                      //representa um componente (bean) que e detectado automaticamente
 public class EmpresaConverterImpl implements EmpresaConverter {
 
     private final ModelMapper mapper;
@@ -22,12 +22,16 @@ public class EmpresaConverterImpl implements EmpresaConverter {
 
     @Override
     public Empresa converterParaEmpresa(final EmpresaRequest empresaRequest) {
-        return mapper.map(empresaRequest, Empresa.class);
+        return empresaRequest == null?
+                null:
+                mapper.map(empresaRequest, Empresa.class);
     }
 
     @Override
     public EmpresaResponse converterParaResponse(final Empresa empresa) {
-        return mapper.map(empresa, EmpresaResponse.class);
+        return empresa == null?
+                null:
+                mapper.map(empresa, EmpresaResponse.class);
     }
 
     @Override

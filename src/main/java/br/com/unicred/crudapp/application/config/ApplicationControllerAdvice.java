@@ -1,9 +1,8 @@
 package br.com.unicred.crudapp.application.config;
 
-import br.com.unicred.crudapp.domain.service.exception.BusinessException;
 import br.com.unicred.crudapp.application.controller.v1.exception.EntityNotFoundException;
-import br.com.unicred.crudapp.application.controller.v1.exception.erros.ErroDeResposta;
-import br.com.unicred.crudapp.application.controller.v1.exception.erros.ErroDeFormulario;
+import br.com.unicred.crudapp.application.controller.v1.exception.erros.ExceptionResponse;
+import br.com.unicred.crudapp.domain.service.exception.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -12,13 +11,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-@RestControllerAdvice     //fará os tratamentos de erros quando tiver uma exceção no caso de validação de formulário
+@RestControllerAdvice     //fara o tratamento dos erros
 public class ApplicationControllerAdvice {
 
     private final MessageSource messageSource;
@@ -28,31 +28,36 @@ public class ApplicationControllerAdvice {
         this.messageSource = messageSource;
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)  //erros de validação de formulário prenchimento incorreto do formulário de criar/alterar
-    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
-    public List<ErroDeFormulario> handle(final MethodArgumentNotValidException exception) {
-        List<ErroDeFormulario> dto = new ArrayList<>();
+    @ExceptionHandler(MethodArgumentNotValidException.class)  //prenchimento incorreto dos formularios de criar e alterar
+    public ResponseEntity<List<ExceptionResponse>> handle(final MethodArgumentNotValidException ex, WebRequest request) {
+        List<ExceptionResponse> dto = new ArrayList<>();
 
-        List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
+        List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
         fieldErrors.forEach(e -> {
             String mensagem = messageSource.getMessage(e, LocaleContextHolder.getLocale());
-            ErroDeFormulario erro = new ErroDeFormulario(e.getField(), mensagem);
-            dto.add(erro);
+            ExceptionResponse response = new ExceptionResponse(new Date(), mensagem, request.getDescription(false));
+            dto.add(response);
         });
 
-        return dto;
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(dto);
     }
 
-    @ExceptionHandler(BusinessException.class)  //erros de negócio - validações de cep
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErroDeFormulario handleBusinessException(final BusinessException e) {
-        return new ErroDeFormulario(e.getCampo(), e.getMessage());
+    @ExceptionHandler(BusinessException.class)  //validacoes de cep
+    public ResponseEntity<ExceptionResponse> handleBusinessException(final BusinessException ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
-    @ExceptionHandler(EntityNotFoundException.class) //entidade não encontrada
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public final ResponseEntity<ErroDeResposta> handleEntityNotFoundException(final EntityNotFoundException ex) {
-        ErroDeResposta erroDeResposta = new ErroDeResposta(ex.getMessage());
-        return new ResponseEntity<>(erroDeResposta, HttpStatus.NOT_FOUND);
+    @ExceptionHandler(EntityNotFoundException.class) //entidade nao encontrada
+    public final ResponseEntity<ExceptionResponse> handleEntityNotFoundException(EntityNotFoundException ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
+    //a excecao mais generica e a exception e a excecao num servico rest mais generica e o internal server error
+    @ExceptionHandler(Exception.class)
+    public final ResponseEntity<ExceptionResponse> handleAllExceptions(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

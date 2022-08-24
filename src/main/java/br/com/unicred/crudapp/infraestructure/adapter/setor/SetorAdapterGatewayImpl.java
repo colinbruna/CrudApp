@@ -2,8 +2,8 @@ package br.com.unicred.crudapp.infraestructure.adapter.setor;
 
 import br.com.unicred.crudapp.domain.model.setor.Setor;
 import br.com.unicred.crudapp.domain.service.setor.SetorAdapter;
-import br.com.unicred.crudapp.infraestructure.entity.setor.SetorEntity;
 import br.com.unicred.crudapp.infraestructure.adapter.setor.converter.SetorEntityConverter;
+import br.com.unicred.crudapp.infraestructure.entity.setor.SetorEntity;
 import br.com.unicred.crudapp.infraestructure.repository.setor.SetorRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,13 +51,9 @@ public class SetorAdapterGatewayImpl implements SetorAdapter {
 
     @Override
     public Setor buscar(final String id) {
-        Optional<SetorEntity> optSetorEntity = repository.findById(new ObjectId(id));
+        Optional<SetorEntity> optionalSetorEntity = repository.findById(new ObjectId(id));
 
-        if (optSetorEntity.isEmpty()) {
-            return null;
-        }
-
-        return converter.converterParaSetor(optSetorEntity.get());
+        return optionalSetorEntity.map(converter::converterParaSetor).orElse(null);
     }
 
     @Override

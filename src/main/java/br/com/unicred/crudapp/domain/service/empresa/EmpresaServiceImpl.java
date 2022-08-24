@@ -1,15 +1,15 @@
 package br.com.unicred.crudapp.domain.service.empresa;
 
 import br.com.unicred.crudapp.application.controller.v1.empresa.EmpresaService;
-import br.com.unicred.crudapp.domain.service.exception.BusinessException;
 import br.com.unicred.crudapp.domain.model.empresa.Empresa;
+import br.com.unicred.crudapp.domain.service.exception.BusinessException;
 import br.com.unicred.crudapp.infraestructure.client.ViaCepClient;
 import br.com.unicred.crudapp.infraestructure.client.ViaCepResponse;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
 
 @Service
 public class EmpresaServiceImpl implements EmpresaService {
@@ -24,31 +24,31 @@ public class EmpresaServiceImpl implements EmpresaService {
     }
 
     private void validarCep(final Empresa empresa) {
-        if (!validarFormatoCep(empresa.getCep().replace("-", ""))) {        //se o método de validar formato der falso, lançar exceção,
-            throw new BusinessException("Cep", "Cep inválido");                                      //senão seguir o fluxo e chamar o metodo buscar cep
+        if (!validarFormatoCep(empresa.getCep().replace("-", ""))) {        //se o metodo de validar formato der falso, lançar exceção,
+            throw new BusinessException("Cep inválido");                                     //senão seguir o fluxo e chamar o metodo buscar cep
         }
 
         ViaCepResponse viaCepResponse = client.buscarCep(empresa.getCep());                   //buscando cep
-        if (Objects.isNull(viaCepResponse.getCep())) {                                        //se o cep for nulo, lançar excessão de erro de erro de campo
-            throw new BusinessException("Cep", "Cep inválido");                               //cep válido segue o fluxo no método que chamou o validar cep
+        if (Objects.isNull(viaCepResponse.getCep())) {                                        //se o cep for nulo, lançar exceção de erro de campo
+            throw new BusinessException("Cep inválido");                                      //cep válido segue o fluxo no método que chamou o validar cep
         }
     }
 
-    private boolean validarFormatoCep(final String cep) {                //validando o formato do cep usando expressão regular(padrão de pesquisa para strings,)
+    private boolean validarFormatoCep(final String cep) {                //validando o formato do cep usando expressão regular(padrão de pesquisa para strings)
         return cep.matches("\\d{8}");                              //avalia se o cep enviado combina com o padrão exigido
     }
 
     private void validar(final Empresa empresa) {
         if (Objects.isNull(empresa.getNome())) {
-            throw new BusinessException("Nome", "Nome não informado");
+            throw new BusinessException("Nome da empresa não informado");
         }
         validarCep(empresa);
     }
 
     @Override
     public Empresa salvar(final Empresa empresa) {
-        validar(empresa);                                //somente as regras de negócio, nesse caso por enquanto só estou validando o cep
-        return adapter.salvar(empresa);                  //chama a adapter service para criar a empresa
+        validar(empresa);
+        return adapter.salvar(empresa);
     }
 
     @Override
@@ -58,9 +58,7 @@ public class EmpresaServiceImpl implements EmpresaService {
     }
 
     @Override
-    public void excluir(final String id) {
-        adapter.excluir(id);
-    }
+    public void excluir(final String id) { adapter.excluir(id); }
 
     @Override
     public Empresa buscar(final String id) { return adapter.buscar(id); }

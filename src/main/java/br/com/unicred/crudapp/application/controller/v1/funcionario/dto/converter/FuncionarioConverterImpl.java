@@ -22,12 +22,16 @@ public class FuncionarioConverterImpl implements FuncionarioConverter{
 
     @Override
     public Funcionario converterParaFuncionario(FuncionarioRequest funcionarioRequest) {
-        return mapper.map(funcionarioRequest, Funcionario.class);
+        return funcionarioRequest == null?
+                null:
+                mapper.map(funcionarioRequest, Funcionario.class);
     }
 
     @Override
     public FuncionarioResponse converterParaResponse(Funcionario funcionario) {
-        return mapper.map(funcionario, FuncionarioResponse.class);
+        return funcionario == null?
+                null:
+                mapper.map(funcionario, FuncionarioResponse.class);
     }
 
     @Override

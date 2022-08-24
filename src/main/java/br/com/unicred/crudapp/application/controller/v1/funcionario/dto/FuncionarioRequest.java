@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 
 public class FuncionarioRequest {
 
-    @NotBlank(message = "id_setor é obrigatório")
+    @NotBlank(message = "id do Setor é obrigatório")
     private String idSetor;
 
     @NotBlank(message = "nome é obrigatório")

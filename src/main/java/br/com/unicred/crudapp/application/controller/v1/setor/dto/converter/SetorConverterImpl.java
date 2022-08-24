@@ -22,12 +22,16 @@ public class SetorConverterImpl implements SetorConverter {
 
     @Override
     public Setor converterParaSetor(SetorRequest setorRequest) {
-        return mapper.map(setorRequest, Setor.class);
+        return setorRequest == null?
+                null:
+                mapper.map(setorRequest, Setor.class);
     }
 
     @Override
     public SetorResponse converterParaResponse(Setor setor) {
-        return mapper.map(setor, SetorResponse.class);
+        return setor == null?
+                null:
+                mapper.map(setor, SetorResponse.class);
     }
 
     @Override
