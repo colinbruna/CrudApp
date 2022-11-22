@@ -3,7 +3,6 @@ package br.com.unicred.crudapp.infraestructure.entity.empresa;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "empresa")
 public class EmpresaEntity {
@@ -28,7 +27,7 @@ public class EmpresaEntity {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(final ObjectId id) {
         this.id = id;
     }
 
@@ -36,7 +35,7 @@ public class EmpresaEntity {
         return nome;
     }
 
-    public void setNome(String nome) {
+    public void setNome(final String nome) {
         this.nome = nome;
     }
 
@@ -44,7 +43,7 @@ public class EmpresaEntity {
         return cnpj;
     }
 
-    public void setCnpj(String cnpj) {
+    public void setCnpj(final String cnpj) {
         this.cnpj = cnpj;
     }
 
@@ -52,7 +51,7 @@ public class EmpresaEntity {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(final String email) {
         this.email = email;
     }
 
@@ -60,7 +59,7 @@ public class EmpresaEntity {
         return telefone;
     }
 
-    public void setTelefone(String telefone) {
+    public void setTelefone(final String telefone) {
         this.telefone = telefone;
     }
 
@@ -68,7 +67,7 @@ public class EmpresaEntity {
         return cep;
     }
 
-    public void setCep(String cep) {
+    public void setCep(final String cep) {
         this.cep = cep;
     }
 
@@ -76,7 +75,7 @@ public class EmpresaEntity {
         return logradouro;
     }
 
-    public void setLogradouro(String logradouro) {
+    public void setLogradouro(final String logradouro) {
         this.logradouro = logradouro;
     }
 
@@ -84,7 +83,7 @@ public class EmpresaEntity {
         return complemento;
     }
 
-    public void setComplemento(String complemento) {
+    public void setComplemento(final String complemento) {
         this.complemento = complemento;
     }
 
@@ -92,7 +91,7 @@ public class EmpresaEntity {
         return bairro;
     }
 
-    public void setBairro(String bairro) {
+    public void setBairro(final String bairro) {
         this.bairro = bairro;
     }
 
@@ -100,7 +99,7 @@ public class EmpresaEntity {
         return localidade;
     }
 
-    public void setLocalidade(String localidade) {
+    public void setLocalidade(final String localidade) {
         this.localidade = localidade;
     }
 
@@ -108,7 +107,7 @@ public class EmpresaEntity {
         return uf;
     }
 
-    public void setUf(String uf) {
+    public void setUf(final String uf) {
         this.uf = uf;
     }
 }

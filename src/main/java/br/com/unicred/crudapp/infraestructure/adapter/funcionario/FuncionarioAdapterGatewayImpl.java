@@ -19,7 +19,8 @@ public class FuncionarioAdapterGatewayImpl implements FuncionarioAdapter {
     private final FuncionarioRepository repository;
 
     @Autowired
-    public FuncionarioAdapterGatewayImpl(final FuncionarioEntityConverter converter, final FuncionarioRepository repository) {
+    public FuncionarioAdapterGatewayImpl(final FuncionarioEntityConverter converter,
+                                         final FuncionarioRepository repository) {
         this.converter = converter;
         this.repository = repository;
     }
@@ -45,15 +46,19 @@ public class FuncionarioAdapterGatewayImpl implements FuncionarioAdapter {
     }
 
     @Override
-    public void excluir(String id) {
+    public void excluir(final String id) {
         repository.deleteById(new ObjectId(id));
     }
 
     @Override
     public Funcionario buscar(final String id) {
-        Optional<FuncionarioEntity> optionalFuncionarioEntity = repository.findById(new ObjectId(id));       //Optional: é usado basicamente como checagem se um objeto está presente ou não na aplicação. Vai evitar as exceções caso retorne dados nulos.
+        Optional<FuncionarioEntity> optionalFuncionarioEntity = repository.findById(new ObjectId(id));
+        //Optional: é usado basicamente como checagem se um objeto está presente ou não na aplicação.
+        //Vai evitar as exceções caso retorne dados nulos.
 
-        return optionalFuncionarioEntity.map(converter::converterParaFuncionario).orElse(null);          //Se um valor estiver presente, retornará o resultado da aplicação da função de mapeamento, caso contrário, retornará um opcional vazio
+        return optionalFuncionarioEntity.map(converter::converterParaFuncionario).orElse(null);
+        //Se um valor estiver presente, retornará o resultado da aplicação da função de mapeamento,
+        //caso contrário, retornará um opcional vazio
     }
 
     @Override
@@ -63,7 +68,7 @@ public class FuncionarioAdapterGatewayImpl implements FuncionarioAdapter {
     }
 
     @Override
-    public List<Funcionario> listarPorSetor(String idSetor) {
+    public List<Funcionario> listarPorSetor(final String idSetor) {
         List<FuncionarioEntity> funcionariosEntity = repository.findByIdSetor(idSetor);
         return converter.converterParaListaFuncionarios(funcionariosEntity);
     }

@@ -7,7 +7,14 @@ import br.com.unicred.crudapp.domain.model.empresa.Empresa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -27,7 +34,7 @@ public class EmpresaController {
     }
 
     @PostMapping
-    public ResponseEntity<EmpresaResponse> salvar(@RequestBody @Valid EmpresaRequest empresaRequest) {
+    public ResponseEntity<EmpresaResponse> salvar(@RequestBody @Valid final EmpresaRequest empresaRequest) {
         Empresa empresa = converter.converterParaEmpresa(empresaRequest);
         Empresa empresaSalva = service.salvar(empresa);
         EmpresaResponse empresaResponse = converter.converterParaResponse(empresaSalva);
@@ -35,17 +42,17 @@ public class EmpresaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EmpresaResponse> alterar(@PathVariable String id, @RequestBody @Valid EmpresaRequest empresaRequest) {
+    public ResponseEntity<EmpresaResponse> alterar(@PathVariable final String id,
+                                                   @RequestBody @Valid final EmpresaRequest empresaRequest) {
         Empresa empresa = converter.converterParaEmpresa(empresaRequest);
-        Empresa empresaAlterada = service.alterar(id,empresa);
+        Empresa empresaAlterada = service.alterar(id, empresa);
 
-        return empresaAlterada == null?
-                ResponseEntity.notFound().build():
-                ResponseEntity.ok(converter.converterParaResponse(empresaAlterada));
+        return empresaAlterada == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(converter
+                        .converterParaResponse(empresaAlterada));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<EmpresaResponse> excluir(@PathVariable String id) {
+    public ResponseEntity<EmpresaResponse> excluir(@PathVariable final String id) {
         if (Objects.isNull(service.buscar(id))) {
             return ResponseEntity.notFound().build();
         }
@@ -55,12 +62,11 @@ public class EmpresaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EmpresaResponse> buscar(@PathVariable String id) {
+    public ResponseEntity<EmpresaResponse> buscar(@PathVariable final String id) {
         Empresa empresa = service.buscar(id);
 
-        return empresa == null?
-                ResponseEntity.notFound().build():
-                ResponseEntity.ok(converter.converterParaResponse(empresa));
+        return empresa == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(converter.
+                converterParaResponse(empresa));
     }
 
     @GetMapping

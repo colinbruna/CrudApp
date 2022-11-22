@@ -53,7 +53,7 @@ public class SetorAdapterGatewayImpl implements SetorAdapter {
     public Setor buscar(final String id) {
         Optional<SetorEntity> optionalSetorEntity = repository.findById(new ObjectId(id));
 
-        return optionalSetorEntity.map(converter::converterParaSetor).orElse(null);
+        return optionalSetorEntity.map(setorEntity -> converter.converterParaSetor(setorEntity)).orElse(null);
     }
 
     @Override

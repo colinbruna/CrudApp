@@ -7,7 +7,15 @@ import br.com.unicred.crudapp.domain.model.setor.Setor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 import javax.validation.Valid;
 import java.util.List;
@@ -27,7 +35,7 @@ public class SetorController {
     }
 
     @PostMapping
-    public ResponseEntity<SetorResponse> salvar(@RequestBody @Valid SetorRequest setorRequest) {
+    public ResponseEntity<SetorResponse> salvar(final @RequestBody @Valid SetorRequest setorRequest) {
         Setor setor = converter.converterParaSetor(setorRequest);
         Setor setorSalvo = service.salvar(setor);
         SetorResponse setorResponse = converter.converterParaResponse(setorSalvo);
@@ -40,17 +48,17 @@ public class SetorController {
     */
 
     @PutMapping("/{id}")
-    public ResponseEntity<SetorResponse> alterar(@PathVariable String id, @RequestBody @Valid SetorRequest setorRequest) {
+    public ResponseEntity<SetorResponse> alterar(@PathVariable final String id,
+                                                 @RequestBody @Valid final SetorRequest setorRequest) {
         Setor setor = converter.converterParaSetor(setorRequest);
         Setor setorAlterado = service.alterar(id, setor);
 
-        return setorAlterado == null?
-                ResponseEntity.notFound().build():
-                ResponseEntity.ok(converter.converterParaResponse(setorAlterado));
+        return setorAlterado == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(converter
+                .converterParaResponse(setorAlterado));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity excluir(@PathVariable String id) {
+    public ResponseEntity excluir(@PathVariable final String id) {
         if (Objects.isNull(service.buscar(id))) {
             return ResponseEntity.notFound().build();
         }
@@ -60,12 +68,11 @@ public class SetorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SetorResponse> buscar(@PathVariable String id) {
+    public ResponseEntity<SetorResponse> buscar(@PathVariable final String id) {
         Setor setor = service.buscar(id);
 
-        return setor == null?
-                ResponseEntity.notFound().build():
-                ResponseEntity.ok(converter.converterParaResponse(setor));
+        return setor == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(converter
+                .converterParaResponse(setor));
     }
 
     @GetMapping

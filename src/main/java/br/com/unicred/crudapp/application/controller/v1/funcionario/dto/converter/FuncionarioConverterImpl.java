@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class FuncionarioConverterImpl implements FuncionarioConverter{
+public class FuncionarioConverterImpl implements FuncionarioConverter {
 
     private final ModelMapper mapper;
 
@@ -21,21 +21,17 @@ public class FuncionarioConverterImpl implements FuncionarioConverter{
     }
 
     @Override
-    public Funcionario converterParaFuncionario(FuncionarioRequest funcionarioRequest) {
-        return funcionarioRequest == null?
-                null:
-                mapper.map(funcionarioRequest, Funcionario.class);
+    public Funcionario converterParaFuncionario(final FuncionarioRequest funcionarioRequest) {
+        return funcionarioRequest == null ? null : mapper.map(funcionarioRequest, Funcionario.class);
     }
 
     @Override
-    public FuncionarioResponse converterParaResponse(Funcionario funcionario) {
-        return funcionario == null?
-                null:
-                mapper.map(funcionario, FuncionarioResponse.class);
+    public FuncionarioResponse converterParaResponse(final Funcionario funcionario) {
+        return funcionario == null ? null : mapper.map(funcionario, FuncionarioResponse.class);
     }
 
     @Override
-    public List<FuncionarioResponse> converterParaListaResponse(List<Funcionario> funcionarios) {
+    public List<FuncionarioResponse> converterParaListaResponse(final List<Funcionario> funcionarios) {
         List<FuncionarioResponse> funcionariosResponse = new ArrayList<>();
 
         for (Funcionario funcionario : funcionarios) {

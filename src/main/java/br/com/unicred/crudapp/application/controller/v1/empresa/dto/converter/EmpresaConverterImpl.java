@@ -16,22 +16,18 @@ public class EmpresaConverterImpl implements EmpresaConverter {
     private final ModelMapper mapper;
 
     @Autowired
-    public EmpresaConverterImpl(ModelMapper mapper) {
+    public EmpresaConverterImpl(final ModelMapper mapper) {
         this.mapper = mapper;
     }
 
     @Override
     public Empresa converterParaEmpresa(final EmpresaRequest empresaRequest) {
-        return empresaRequest == null?
-                null:
-                mapper.map(empresaRequest, Empresa.class);
+        return empresaRequest == null ? null : mapper.map(empresaRequest, Empresa.class);
     }
 
     @Override
     public EmpresaResponse converterParaResponse(final Empresa empresa) {
-        return empresa == null?
-                null:
-                mapper.map(empresa, EmpresaResponse.class);
+        return empresa == null ? null : mapper.map(empresa, EmpresaResponse.class);
     }
 
     @Override

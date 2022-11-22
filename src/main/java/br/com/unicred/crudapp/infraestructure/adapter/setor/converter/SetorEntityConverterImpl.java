@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class SetorEntityConverterImpl implements SetorEntityConverter{
+public class SetorEntityConverterImpl implements SetorEntityConverter {
 
     private final ModelMapper mapper;
 
@@ -20,21 +20,17 @@ public class SetorEntityConverterImpl implements SetorEntityConverter{
     }
 
     @Override
-    public SetorEntity converterParaEntity(Setor setor) {
-        return setor == null?
-                null:
-                mapper.map(setor, SetorEntity.class);
+    public SetorEntity converterParaEntity(final Setor setor) {
+        return setor == null ? null : mapper.map(setor, SetorEntity.class);
     }
 
     @Override
-    public Setor converterParaSetor(SetorEntity setorEntity) {
-        return setorEntity == null?
-                null:
-                mapper.map(setorEntity, Setor.class);
+    public Setor converterParaSetor(final SetorEntity setorEntity) {
+        return setorEntity == null ? null : mapper.map(setorEntity, Setor.class);
     }
 
     @Override
-    public List<Setor> converterParaListaSetores(List<SetorEntity> setoresEntity) {
+    public List<Setor> converterParaListaSetores(final List<SetorEntity> setoresEntity) {
         List<Setor> setores = new ArrayList<>();
 
         for (SetorEntity setorEntity : setoresEntity) {

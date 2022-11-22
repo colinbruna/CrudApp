@@ -20,15 +20,11 @@ public class EmpresaEntityConverterImpl implements EmpresaEntityConverter {
     }
 
     public EmpresaEntity converterParaEntity(final Empresa empresa) {
-        return empresa == null?
-                null:
-                mapper.map(empresa, EmpresaEntity.class);
+        return empresa == null ? null : mapper.map(empresa, EmpresaEntity.class);
     }
 
     public Empresa converterParaEmpresa(final EmpresaEntity empresaEntity) {
-        return empresaEntity == null?
-                null:
-                mapper.map(empresaEntity, Empresa.class);
+        return empresaEntity == null ? null : mapper.map(empresaEntity, Empresa.class);
     }
 
     public List<Empresa> converterParaListaEmpresas(final List<EmpresaEntity> empresasEntity) {

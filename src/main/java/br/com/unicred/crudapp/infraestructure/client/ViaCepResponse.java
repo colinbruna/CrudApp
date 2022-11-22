@@ -7,9 +7,11 @@ public class ViaCepResponse {
     public ViaCepResponse() {
     }
 
-    public String getCep() { return cep; }
+    public String getCep() {
+        return cep;
+    }
 
-    public void setCep(String cep) {
+    public void setCep(final String cep) {
         this.cep = cep;
     }
 }

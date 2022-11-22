@@ -13,7 +13,7 @@ public class Setor {
         return nome;
     }
 
-    public void setNome(String nome) {
+    public void setNome(final String nome) {
         this.nome = nome;
     }
 
@@ -21,7 +21,7 @@ public class Setor {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
+    public void setDescricao(final String descricao) {
         this.descricao = descricao;
     }
 
@@ -29,7 +29,7 @@ public class Setor {
         return idEmpresa;
     }
 
-    public void setIdEmpresa(String idEmpresa) {
+    public void setIdEmpresa(final String idEmpresa) {
         this.idEmpresa = idEmpresa;
     }
 }

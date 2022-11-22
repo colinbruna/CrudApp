@@ -31,15 +31,19 @@ public class EmpresaAdapterGatewayImpl implements EmpresaAdapter {
     }
 
     public Empresa alterar(final String id, final Empresa empresa) {
-        Optional<EmpresaEntity> optEmpresaEntity = repository.findById(new ObjectId(id));   //opt recebe a empresa do banco
+        Optional<EmpresaEntity> optEmpresaEntity = repository.findById(new ObjectId(id));
+        //opt recebe a empresa do banco
 
-        if (optEmpresaEntity.isPresent()) {                                                 //empresa encontrada fazer as alterações
+        if (optEmpresaEntity.isPresent()) {
+            //empresa encontrada fazer as alterações
             EmpresaEntity entity = converter.converterParaEntity(empresa);
-            entity.setId(optEmpresaEntity.get().getId());                                   //a empresa com os dados novos precisa receber o ID vinculado no mongo, se não fizer assim, não salva a alteração
+            entity.setId(optEmpresaEntity.get().getId());
+            //a empresa com os dados novos precisa receber o ID vinculado no mongo, se não fizer assim,
+            // não salva a alteração
             return converter.converterParaEmpresa(repository.save(entity));
         }
 
-        return null;                                                                        //se não encontrar o id, retorna null e trata na controller
+        return null; //se não encontrar o id, retorna null e trata na controller
     }
 
     public void excluir(final String id) {
@@ -47,13 +51,21 @@ public class EmpresaAdapterGatewayImpl implements EmpresaAdapter {
     }
 
     public Empresa buscar(final String id) {
-        Optional<EmpresaEntity> optEmpresaEntity = repository.findById(new ObjectId(id));       //Optional: é usado basicamente como checagem se um objeto está presente ou não na aplicação. Vai evitar as exceções caso retorne dados nulos.
+        Optional<EmpresaEntity> optEmpresaEntity = repository.findById(new ObjectId(id));
+        //Optional: é usado basicamente como checagem se um objeto está presente ou não na aplicação.
+        // Vai evitar as exceções caso retorne dados nulos.
 
-        return optEmpresaEntity.map(converter::converterParaEmpresa).orElse(null);          //Se um valor estiver presente, retornará o resultado da aplicação da função de mapeamento, caso contrário, retornará um opcional vazio
+        //converter.converterParaEmpresa(optEmpresaEntity.get());
+
+        return optEmpresaEntity.map(converter::converterParaEmpresa).orElse(null);
+        //Se um valor estiver presente, retornará o resultado da aplicação da função de mapeamento,
+        // caso contrário, retornará um opcional vazio
     }
 
     public List<Empresa> listar() {
-        List<EmpresaEntity> empresasEntity = repository.findAll();                  //lista empresasEntity recebe todas empresas encontradas no repositório
-        return converter.converterParaListaEmpresas(empresasEntity);                //converte para lista empresas
+        List<EmpresaEntity> empresasEntity = repository.findAll();
+        //lista empresasEntity recebe todas empresas encontradas no repositório
+        return converter.converterParaListaEmpresas(empresasEntity);
+        //converte para lista empresas
     }
 }

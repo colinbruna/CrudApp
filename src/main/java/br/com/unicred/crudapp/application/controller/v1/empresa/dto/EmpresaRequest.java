@@ -2,7 +2,9 @@ package br.com.unicred.crudapp.application.controller.v1.empresa.dto;
 
 import org.hibernate.validator.constraints.br.CNPJ;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+
 
 public class EmpresaRequest {
 
@@ -18,7 +20,6 @@ public class EmpresaRequest {
     private String email;
 
     @NotBlank(message = "Telefone é obrigatório")
-    @Size(min = 11, max = 11, message = "Número de telefone inválido")
     private String telefone;
 
     @NotBlank(message = "Cep é obrigatório")
@@ -42,13 +43,19 @@ public class EmpresaRequest {
     public EmpresaRequest() {
     }
 
-    public String getNome() { return nome; }
+    public String getNome() {
+        return nome;
+    }
 
-    public void setNome(String nome) { this.nome = nome; }
+    public void setNome(final String nome) {
+        this.nome = nome;
+    }
 
-    public String getCnpj() { return cnpj; }
+    public String getCnpj() {
+        return cnpj;
+    }
 
-    public void setCnpj(String cnpj) {
+    public void setCnpj(final String cnpj) {
         this.cnpj = cnpj;
     }
 
@@ -56,7 +63,7 @@ public class EmpresaRequest {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(final String email) {
         this.email = email;
     }
 
@@ -64,7 +71,7 @@ public class EmpresaRequest {
         return telefone;
     }
 
-    public void setTelefone(String telefone) {
+    public void setTelefone(final String telefone) {
         this.telefone = telefone;
     }
 
@@ -72,7 +79,7 @@ public class EmpresaRequest {
         return cep;
     }
 
-    public void setCep(String cep) {
+    public void setCep(final String cep) {
         this.cep = cep;
     }
 
@@ -80,7 +87,7 @@ public class EmpresaRequest {
         return logradouro;
     }
 
-    public void setLogradouro(String logradouro) {
+    public void setLogradouro(final String logradouro) {
         this.logradouro = logradouro;
     }
 
@@ -88,13 +95,15 @@ public class EmpresaRequest {
         return complemento;
     }
 
-    public void setComplemento(String complemento) {
+    public void setComplemento(final String complemento) {
         this.complemento = complemento;
     }
 
-    public String getBairro() { return bairro; }
+    public String getBairro() {
+        return bairro;
+    }
 
-    public void setBairro(String bairro) {
+    public void setBairro(final String bairro) {
         this.bairro = bairro;
     }
 
@@ -102,7 +111,7 @@ public class EmpresaRequest {
         return localidade;
     }
 
-    public void setLocalidade(String localidade) {
+    public void setLocalidade(final String localidade) {
         this.localidade = localidade;
     }
 
@@ -110,5 +119,7 @@ public class EmpresaRequest {
         return uf;
     }
 
-    public void setUf(String uf) { this.uf = uf; }
+    public void setUf(final String uf) {
+        this.uf = uf;
+    }
 }

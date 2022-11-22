@@ -28,14 +28,19 @@ public class ApplicationControllerAdvice {
         this.messageSource = messageSource;
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)  //prenchimento incorreto dos formularios de criar e alterar
-    public ResponseEntity<List<ExceptionResponse>> handle(final MethodArgumentNotValidException ex, WebRequest request) {
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    //prenchimento incorreto dos formularios de criar e alterar
+    public ResponseEntity<List<ExceptionResponse>> handle(final MethodArgumentNotValidException ex,
+                                                          final WebRequest request) {
         List<ExceptionResponse> dto = new ArrayList<>();
 
         List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
         fieldErrors.forEach(e -> {
             String mensagem = messageSource.getMessage(e, LocaleContextHolder.getLocale());
-            ExceptionResponse response = new ExceptionResponse(new Date(), mensagem, request.getDescription(false));
+            ExceptionResponse response =
+                    new ExceptionResponse(new Date(),
+                    mensagem,
+                    request.getDescription(false));
             dto.add(response);
         });
 
@@ -43,21 +48,32 @@ public class ApplicationControllerAdvice {
     }
 
     @ExceptionHandler(BusinessException.class)  //validacoes de cep
-    public ResponseEntity<ExceptionResponse> handleBusinessException(final BusinessException ex, WebRequest request) {
-        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+    public ResponseEntity<ExceptionResponse> handleBusinessException(final BusinessException ex,
+                                                                     final WebRequest request) {
+        ExceptionResponse exceptionResponse =
+                new ExceptionResponse(new Date(),
+                        ex.getMessage(),
+                        request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @ExceptionHandler(EntityNotFoundException.class) //entidade nao encontrada
-    public final ResponseEntity<ExceptionResponse> handleEntityNotFoundException(EntityNotFoundException ex, WebRequest request) {
-        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+    public final ResponseEntity<ExceptionResponse> handleEntityNotFoundException(final EntityNotFoundException ex,
+                                                                                 final WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
     //a excecao mais generica e a exception e a excecao num servico rest mais generica e o internal server error
     @ExceptionHandler(Exception.class)
-    public final ResponseEntity<ExceptionResponse> handleAllExceptions(Exception ex, WebRequest request) {
-        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+    public final ResponseEntity<ExceptionResponse> handleAllExceptions(final Exception ex, final WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
         return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

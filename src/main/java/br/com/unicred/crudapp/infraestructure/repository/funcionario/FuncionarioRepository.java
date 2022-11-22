@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public interface FuncionarioRepository extends MongoRepository<FuncionarioEntity, ObjectId> {
 
-    List<FuncionarioEntity> findByIdSetor(String idSetor); //método criado seguindo o padrão de nomenclatura do spring data
+    List<FuncionarioEntity> findByIdSetor(String idSetor);
+    //método criado seguindo o padrão de nomenclatura do spring data
 
 }

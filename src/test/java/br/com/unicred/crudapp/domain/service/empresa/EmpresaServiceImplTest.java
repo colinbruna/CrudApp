@@ -26,7 +26,11 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 class EmpresaServiceImplTest {
 
-    private static final WireMockServer wireMockServer = new WireMockServer(WireMockConfiguration.options().port(8082));
+    private static final int PORT = 8082;
+    private static final WireMockServer WIRE_MOCK_SERVER = new WireMockServer(
+            WireMockConfiguration
+                    .options()
+                    .port(PORT));
 
     @Mock
     private EmpresaAdapter adapter;
@@ -39,13 +43,13 @@ class EmpresaServiceImplTest {
 
     @BeforeAll
     static void setUp() {
-        wireMockServer.start();
-        configureFor("localhost", 8082);
+        WIRE_MOCK_SERVER.start();
+        configureFor("localhost", PORT);
     }
 
     @AfterAll
     static void setDown() {
-        wireMockServer.stop();
+        WIRE_MOCK_SERVER.stop();
     }
 
     // Estrutura básica de um método de teste: preparação do cenário, execução do cenário e a verificação de resultados
@@ -184,7 +188,8 @@ class EmpresaServiceImplTest {
 
         assertNotNull(empresas); // assegurei que não é nulo
         assertEquals(2, empresas.size()); //assegurei que o tamanho da minha lista é 2
-        assertEquals(Empresa.class, empresas.get(0).getClass()); //quero assegurar que o objeto do index 0 que veio dentro dessa lista tem a classe do tipo Empresa
+        assertEquals(Empresa.class, empresas.get(0).getClass());
+        //quero assegurar que o objeto do index 0 que veio dentro dessa lista tem a classe do tipo Empresa
 
         assertEquals(listExpected.get(0).getNome(), empresas.get(0).getNome());
         assertEquals(listExpected.get(1).getNome(), empresas.get(1).getNome());

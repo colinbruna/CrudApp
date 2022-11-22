@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class FuncionarioEntityConverterImpl implements FuncionarioEntityConverter{
+public class FuncionarioEntityConverterImpl implements FuncionarioEntityConverter {
 
     private final ModelMapper mapper;
 
@@ -20,21 +20,17 @@ public class FuncionarioEntityConverterImpl implements FuncionarioEntityConverte
     }
 
     @Override
-    public FuncionarioEntity converterParaEntity(Funcionario funcionario) {
-        return funcionario == null?
-                null:
-                mapper.map(funcionario, FuncionarioEntity.class);
+    public FuncionarioEntity converterParaEntity(final Funcionario funcionario) {
+        return funcionario == null ? null : mapper.map(funcionario, FuncionarioEntity.class);
     }
 
     @Override
-    public Funcionario converterParaFuncionario(FuncionarioEntity funcionarioEntity) {
-        return funcionarioEntity == null?
-                null:
-                mapper.map(funcionarioEntity, Funcionario.class);
+    public Funcionario converterParaFuncionario(final FuncionarioEntity funcionarioEntity) {
+        return funcionarioEntity == null ? null : mapper.map(funcionarioEntity, Funcionario.class);
     }
 
     @Override
-    public List<Funcionario> converterParaListaFuncionarios(List<FuncionarioEntity> funcionariosEntity) {
+    public List<Funcionario> converterParaListaFuncionarios(final List<FuncionarioEntity> funcionariosEntity) {
         List<Funcionario> funcionarios = new ArrayList<>();
 
         for (FuncionarioEntity funcionarioEntity : funcionariosEntity) {

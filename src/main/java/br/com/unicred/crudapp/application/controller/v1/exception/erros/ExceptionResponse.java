@@ -2,13 +2,13 @@ package br.com.unicred.crudapp.application.controller.v1.exception.erros;
 
 import java.util.Date;
 
-public class ExceptionResponse{
+public class ExceptionResponse {
 
     private Date timestamp;
     private String message;
     private String details;
 
-    public ExceptionResponse(Date timestamp, String message, String details) {
+    public ExceptionResponse(final Date timestamp, final String message, final String details) {
         super();
         this.timestamp = timestamp;
         this.message = message;

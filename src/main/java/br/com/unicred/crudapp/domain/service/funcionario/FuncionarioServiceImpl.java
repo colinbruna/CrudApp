@@ -18,7 +18,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     private final SetorService setorService;
 
     @Autowired
-    public FuncionarioServiceImpl(FuncionarioAdapter adapter, SetorService setorService) {
+    public FuncionarioServiceImpl(final FuncionarioAdapter adapter, final SetorService setorService) {
         this.adapter = adapter;
         this.setorService = setorService;
     }
@@ -43,12 +43,14 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     }
 
     @Override
-    public void exluir(String id) {
+    public void exluir(final String id) {
         adapter.excluir(id);
     }
 
     @Override
-    public Funcionario buscar(final String id) { return adapter.buscar(id); }
+    public Funcionario buscar(final String id) {
+        return adapter.buscar(id);
+    }
 
     @Override
     public List<Funcionario> listar() {
@@ -56,7 +58,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     }
 
     @Override
-    public List<Funcionario> listarPorSetor(String idSetor) {
+    public List<Funcionario> listarPorSetor(final String idSetor) {
         return adapter.listarPorSetor(idSetor);
     }
 

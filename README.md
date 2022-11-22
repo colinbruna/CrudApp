@@ -48,7 +48,7 @@ Obs.: Salvar todas as chamadas ao microsserviço numa coleção do postman
 
 Todas as regras de negócio devem ser tratadas com o uso do JUnit, para testar a integração com o serviço que analisa um cep existente o mesmo deve ser feito através da técnologia wiremock
 
-- [ ] empresas
+- [x] empresas
 
 ### DDD
 “É um conjunto de princípios com foco em domínio, exploração de modelos de formas criativas e definir e falar a linguagem Ubíqua, baseado no contexto delimitado.”

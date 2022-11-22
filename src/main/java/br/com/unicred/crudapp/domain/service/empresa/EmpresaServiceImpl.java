@@ -24,18 +24,19 @@ public class EmpresaServiceImpl implements EmpresaService {
     }
 
     private void validarCep(final Empresa empresa) {
-        if (!validarFormatoCep(empresa.getCep().replace("-", ""))) {        //se o metodo de validar formato der falso, lançar exceção,
-            throw new BusinessException("Cep inválido");                                     //senão seguir o fluxo e chamar o metodo buscar cep
+        if (!validarFormatoCep(empresa.getCep().replace("-", ""))) {
+            throw new BusinessException("Cep inválido");
         }
 
-        ViaCepResponse viaCepResponse = client.buscarCep(empresa.getCep());                   //buscando cep
-        if (Objects.isNull(viaCepResponse.getCep())) {                                        //se o cep for nulo, lançar exceção de erro de campo
-            throw new BusinessException("Cep inválido");                                      //cep válido segue o fluxo no método que chamou o validar cep
+        ViaCepResponse viaCepResponse = client.buscarCep(empresa.getCep());
+        if (Objects.isNull(viaCepResponse.getCep())) {
+            throw new BusinessException("Cep inválido");
         }
     }
-
-    private boolean validarFormatoCep(final String cep) {                //validando o formato do cep usando expressão regular(padrão de pesquisa para strings)
-        return cep.matches("\\d{8}");                              //avalia se o cep enviado combina com o padrão exigido
+    //validando o formato do cep usando expressão regular(padrão de pesquisa para strings)
+    //avalia se o cep enviado combina com o padrão exigido
+    private boolean validarFormatoCep(final String cep) {
+        return cep.matches("\\d{8}");
     }
 
     private void validar(final Empresa empresa) {
@@ -58,10 +59,14 @@ public class EmpresaServiceImpl implements EmpresaService {
     }
 
     @Override
-    public void excluir(final String id) { adapter.excluir(id); }
+    public void excluir(final String id) {
+        adapter.excluir(id);
+    }
 
     @Override
-    public Empresa buscar(final String id) { return adapter.buscar(id); }
+    public Empresa buscar(final String id) {
+        return adapter.buscar(id);
+    }
 
     @Override
     public List<Empresa> listar() {

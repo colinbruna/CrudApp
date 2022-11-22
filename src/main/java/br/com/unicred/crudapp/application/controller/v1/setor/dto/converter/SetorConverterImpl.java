@@ -21,21 +21,17 @@ public class SetorConverterImpl implements SetorConverter {
     }
 
     @Override
-    public Setor converterParaSetor(SetorRequest setorRequest) {
-        return setorRequest == null?
-                null:
-                mapper.map(setorRequest, Setor.class);
+    public Setor converterParaSetor(final SetorRequest setorRequest) {
+        return setorRequest == null ? null : mapper.map(setorRequest, Setor.class);
     }
 
     @Override
-    public SetorResponse converterParaResponse(Setor setor) {
-        return setor == null?
-                null:
-                mapper.map(setor, SetorResponse.class);
+    public SetorResponse converterParaResponse(final Setor setor) {
+        return setor == null ? null : mapper.map(setor, SetorResponse.class);
     }
 
     @Override
-    public List<SetorResponse> converterParaListaResponse(List<Setor> setores) {
+    public List<SetorResponse> converterParaListaResponse(final List<Setor> setores) {
         List<SetorResponse> setoresResponse = new ArrayList<>();
 
         for (Setor setor : setores) {

@@ -30,7 +30,7 @@ public class Empresa {
         return cnpj;
     }
 
-    public void setCnpj(String cnpj) {
+    public void setCnpj(final String cnpj) {
         this.cnpj = cnpj;
     }
 
@@ -38,7 +38,7 @@ public class Empresa {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(final String email) {
         this.email = email;
     }
 
@@ -46,7 +46,7 @@ public class Empresa {
         return telefone;
     }
 
-    public void setTelefone(String telefone) {
+    public void setTelefone(final String telefone) {
         this.telefone = telefone;
     }
 
@@ -54,7 +54,7 @@ public class Empresa {
         return cep;
     }
 
-    public void setCep(String cep) {
+    public void setCep(final String cep) {
         this.cep = cep;
     }
 
@@ -62,7 +62,7 @@ public class Empresa {
         return logradouro;
     }
 
-    public void setLogradouro(String logradouro) {
+    public void setLogradouro(final String logradouro) {
         this.logradouro = logradouro;
     }
 
@@ -70,7 +70,7 @@ public class Empresa {
         return complemento;
     }
 
-    public void setComplemento(String complemento) {
+    public void setComplemento(final String complemento) {
         this.complemento = complemento;
     }
 
@@ -78,7 +78,7 @@ public class Empresa {
         return bairro;
     }
 
-    public void setBairro(String bairro) {
+    public void setBairro(final String bairro) {
         this.bairro = bairro;
     }
 
@@ -86,7 +86,7 @@ public class Empresa {
         return localidade;
     }
 
-    public void setLocalidade(String localidade) {
+    public void setLocalidade(final String localidade) {
         this.localidade = localidade;
     }
 
@@ -94,7 +94,7 @@ public class Empresa {
         return uf;
     }
 
-    public void setUf(String uf) {
+    public void setUf(final String uf) {
         this.uf = uf;
     }
 }
