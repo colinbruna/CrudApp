@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.br.CNPJ;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 
 public class EmpresaRequest {
@@ -20,6 +21,7 @@ public class EmpresaRequest {
     private String email;
 
     @NotBlank(message = "Telefone é obrigatório")
+    @Pattern(regexp = "^\\d{11}$", message = "Telefone inválido")
     private String telefone;
 
     @NotBlank(message = "Cep é obrigatório")
