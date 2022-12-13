@@ -3,6 +3,7 @@ package br.com.unicred.crudapp.application.controller.v1.funcionario.dto;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 public class FuncionarioRequest {
 
@@ -12,7 +13,8 @@ public class FuncionarioRequest {
     @NotBlank(message = "nome é obrigatório")
     private String nome;
 
-    @CPF
+    @CPF(message = "CPF inválido")
+    @Pattern(regexp = "^\\d{11}$", message = "deve conter somente números")
     @NotBlank(message = "cpf é obrigatório")
     private String cpf;
 

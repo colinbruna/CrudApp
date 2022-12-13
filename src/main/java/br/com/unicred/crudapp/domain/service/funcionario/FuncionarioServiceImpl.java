@@ -30,15 +30,21 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         }
     }
 
+    private void validarNome(final Funcionario funcionario) {
+        funcionario.setNome(funcionario.getNome().trim());
+    }
+
     @Override
     public Funcionario salvar(final Funcionario funcionario) {
         validarSetor(funcionario);
+        validarNome(funcionario);
         return adapter.salvar(funcionario);
     }
 
     @Override
     public Funcionario alterar(final String id, final Funcionario funcionario) {
         validarSetor(funcionario);
+        validarNome(funcionario);
         return adapter.alterar(id, funcionario);
     }
 
