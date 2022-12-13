@@ -2,7 +2,6 @@ package br.com.unicred.crudapp.application.controller.v1.empresa.dto;
 
 import org.hibernate.validator.constraints.br.CNPJ;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
@@ -17,7 +16,9 @@ public class EmpresaRequest {
     private String cnpj;
 
     @NotBlank(message = "E-mail é obrigatório")
-    @Email
+    //@Email //passa sem . e não passa sem @
+    @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "Email inválido")
+    //não aceita sem @, ., aceita .qualquercoisa
     private String email;
 
     @NotBlank(message = "Telefone é obrigatório")
