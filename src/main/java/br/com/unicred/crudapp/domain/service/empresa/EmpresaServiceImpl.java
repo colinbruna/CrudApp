@@ -24,11 +24,11 @@ public class EmpresaServiceImpl implements EmpresaService {
     }
 
     private void validarCep(final Empresa empresa) {
-        if (!validarFormatoCep(empresa.getCep().replace("-", ""))) {
+        if (!validarFormatoCep(empresa.getEndereco().getCep().replace("-", ""))) {
             throw new BusinessException("Cep inválido");
         }
 
-        ViaCepResponse viaCepResponse = client.buscarCep(empresa.getCep());
+        ViaCepResponse viaCepResponse = client.buscarCep(empresa.getEndereco().getCep());
         if (Objects.isNull(viaCepResponse.getCep())) {
             throw new BusinessException("Cep inválido");
         }

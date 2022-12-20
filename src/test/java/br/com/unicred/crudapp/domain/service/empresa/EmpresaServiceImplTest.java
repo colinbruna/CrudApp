@@ -2,6 +2,7 @@ package br.com.unicred.crudapp.domain.service.empresa;
 
 import br.com.unicred.crudapp.application.controller.v1.empresa.EmpresaService;
 import br.com.unicred.crudapp.domain.model.empresa.Empresa;
+import br.com.unicred.crudapp.domain.model.empresa.Endereco;
 import br.com.unicred.crudapp.domain.service.empresa.config.CepStub;
 import br.com.unicred.crudapp.domain.service.exception.BusinessException;
 import br.com.unicred.crudapp.infraestructure.client.ViaCepClient;
@@ -71,12 +72,12 @@ class EmpresaServiceImplTest {
         assertEquals(empresa.getCnpj(), empresaSalva.getCnpj());
         assertEquals(empresa.getEmail(), empresaSalva.getEmail());
         assertEquals(empresa.getTelefone(), empresaSalva.getTelefone());
-        assertEquals(empresa.getCep(), empresaSalva.getCep());
-        assertEquals(empresa.getLogradouro(), empresaSalva.getLogradouro());
-        assertEquals(empresa.getComplemento(), empresaSalva.getComplemento());
-        assertEquals(empresa.getBairro(), empresaSalva.getBairro());
-        assertEquals(empresa.getLocalidade(), empresaSalva.getLocalidade());
-        assertEquals(empresa.getUf(), empresaSalva.getUf());
+        assertEquals(empresa.getEndereco().getCep(), empresaSalva.getEndereco().getCep());
+        assertEquals(empresa.getEndereco().getLogradouro(), empresaSalva.getEndereco().getLogradouro());
+        assertEquals(empresa.getEndereco().getComplemento(), empresaSalva.getEndereco().getComplemento());
+        assertEquals(empresa.getEndereco().getBairro(), empresaSalva.getEndereco().getBairro());
+        assertEquals(empresa.getEndereco().getLocalidade(), empresaSalva.getEndereco().getLocalidade());
+        assertEquals(empresa.getEndereco().getUf(), empresaSalva.getEndereco().getUf());
     }
 
     @Test
@@ -96,7 +97,7 @@ class EmpresaServiceImplTest {
     void testeSalvarCepFormatoInvalido() {
         EmpresaService service = new EmpresaServiceImpl(adapter, viaCepClient);
         Empresa empresa = criarEmpresaValida();
-        empresa.setCep("aaa");
+        empresa.getEndereco().setCep("aaa");
 
         BusinessException exception = assertThrows(BusinessException.class, () -> service.salvar(empresa));
 
@@ -108,7 +109,7 @@ class EmpresaServiceImplTest {
     void testeSalvarCepInexistente() throws IOException {
         EmpresaService service = new EmpresaServiceImpl(adapter, viaCepClient);
         Empresa empresa = criarEmpresaValida();
-        empresa.setCep("00000000");
+        empresa.getEndereco().setCep("00000000");
         cepStub.consultaCepInexistente();
 
         BusinessException exception = assertThrows(BusinessException.class, () -> service.salvar(empresa));
@@ -133,12 +134,12 @@ class EmpresaServiceImplTest {
         assertEquals(empresa.getCnpj(), empresaAlterada.getCnpj());
         assertEquals(empresa.getEmail(), empresaAlterada.getEmail());
         assertEquals(empresa.getTelefone(), empresaAlterada.getTelefone());
-        assertEquals(empresa.getCep(), empresaAlterada.getCep());
-        assertEquals(empresa.getLogradouro(), empresaAlterada.getLogradouro());
-        assertEquals(empresa.getComplemento(), empresaAlterada.getComplemento());
-        assertEquals(empresa.getBairro(), empresaAlterada.getBairro());
-        assertEquals(empresa.getLocalidade(), empresaAlterada.getLocalidade());
-        assertEquals(empresa.getUf(), empresaAlterada.getUf());
+        assertEquals(empresa.getEndereco().getCep(), empresaAlterada.getEndereco().getCep());
+        assertEquals(empresa.getEndereco().getLogradouro(), empresaAlterada.getEndereco().getLogradouro());
+        assertEquals(empresa.getEndereco().getComplemento(), empresaAlterada.getEndereco().getComplemento());
+        assertEquals(empresa.getEndereco().getBairro(), empresaAlterada.getEndereco().getBairro());
+        assertEquals(empresa.getEndereco().getLocalidade(), empresaAlterada.getEndereco().getLocalidade());
+        assertEquals(empresa.getEndereco().getUf(), empresaAlterada.getEndereco().getUf());
     }
 
     @Test
@@ -168,12 +169,12 @@ class EmpresaServiceImplTest {
         assertEquals(expected.getCnpj(), empresaEncontrada.getCnpj());
         assertEquals(expected.getEmail(), empresaEncontrada.getEmail());
         assertEquals(expected.getTelefone(), empresaEncontrada.getTelefone());
-        assertEquals(expected.getCep(), empresaEncontrada.getCep());
-        assertEquals(expected.getLogradouro(), empresaEncontrada.getLogradouro());
-        assertEquals(expected.getComplemento(), empresaEncontrada.getComplemento());
-        assertEquals(expected.getBairro(), empresaEncontrada.getBairro());
-        assertEquals(expected.getLocalidade(), empresaEncontrada.getLocalidade());
-        assertEquals(expected.getUf(), empresaEncontrada.getUf());
+        assertEquals(expected.getEndereco().getCep(), empresaEncontrada.getEndereco().getCep());
+        assertEquals(expected.getEndereco().getLogradouro(), empresaEncontrada.getEndereco().getLogradouro());
+        assertEquals(expected.getEndereco().getComplemento(), empresaEncontrada.getEndereco().getComplemento());
+        assertEquals(expected.getEndereco().getBairro(), empresaEncontrada.getEndereco().getBairro());
+        assertEquals(expected.getEndereco().getLocalidade(), empresaEncontrada.getEndereco().getLocalidade());
+        assertEquals(expected.getEndereco().getUf(), empresaEncontrada.getEndereco().getUf());
     }
 
     @Test
@@ -197,47 +198,55 @@ class EmpresaServiceImplTest {
 
     private Empresa criarEmpresaValida() {
 
+        Endereco endereco = new Endereco();
+        endereco.setCep("91350300");
+        endereco.setLogradouro("Rua empresa");
+        endereco.setComplemento("10");
+        endereco.setBairro("Bairro");
+        endereco.setLocalidade("Localidade");
+        endereco.setUf("Uf");
+
         Empresa empresa = new Empresa();
         empresa.setNome("Nome da empresa");
         empresa.setCnpj("35690251000120");
         empresa.setEmail("empresa@email.com.br");
         empresa.setTelefone("33333333333");
-        empresa.setCep("91350300");
-        empresa.setLogradouro("Rua empresa");
-        empresa.setComplemento("10");
-        empresa.setBairro("Bairro");
-        empresa.setLocalidade("Localidade");
-        empresa.setUf("Uf");
-
+        empresa.setEndereco(endereco);
         return empresa;
     }
 
     private List<Empresa> criarListaEmpresaValida() {
         List<Empresa> listaEmpresas = new ArrayList<>();
 
+        Endereco endereco = new Endereco();
+        endereco.setCep("91350300");
+        endereco.setLogradouro("Rua empresa");
+        endereco.setComplemento("10");
+        endereco.setBairro("Bairro");
+        endereco.setLocalidade("Localidade");
+        endereco.setUf("Uf");
+
+        Endereco endereco2 = new Endereco();
+        endereco2.setCep("91350300");
+        endereco2.setLogradouro("Rua empresa2");
+        endereco2.setComplemento("10");
+        endereco2.setBairro("Bairro2");
+        endereco2.setLocalidade("Localidade2");
+        endereco2.setUf("Uf2");
+
         Empresa empresa = new Empresa();
         empresa.setNome("Nome da empresa");
         empresa.setCnpj("35690251000120");
         empresa.setEmail("empresa@email.com.br");
         empresa.setTelefone("33333333333");
-        empresa.setCep("91350300");
-        empresa.setLogradouro("Rua empresa");
-        empresa.setComplemento("10");
-        empresa.setBairro("Bairro");
-        empresa.setLocalidade("Localidade");
-        empresa.setUf("Uf");
+        empresa.setEndereco(endereco);
 
         Empresa empresa2 = new Empresa();
         empresa2.setNome("Nome da empresa2");
         empresa2.setCnpj("66626395000140");
         empresa2.setEmail("empresa2@email.com.br");
         empresa2.setTelefone("33333333333");
-        empresa2.setCep("91350300");
-        empresa2.setLogradouro("Rua empresa2");
-        empresa2.setComplemento("10");
-        empresa2.setBairro("Bairro2");
-        empresa2.setLocalidade("Localidade2");
-        empresa2.setUf("Uf2");
+        empresa2.setEndereco(endereco2);
 
         listaEmpresas.add(empresa);
         listaEmpresas.add(empresa2);
