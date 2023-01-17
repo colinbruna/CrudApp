@@ -60,7 +60,9 @@ public class EmpresaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<EmpresaResponse> excluir(@PathVariable final String id) {
+    public ResponseEntity<EmpresaResponse> excluir(
+            @Parameter(description = "id", example = "63c6d5ca5578ec03877be13e")
+            @PathVariable final String id) {
         if (Objects.isNull(service.buscar(id))) {
             return ResponseEntity.notFound().build();
         }
