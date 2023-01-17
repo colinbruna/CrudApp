@@ -3,18 +3,18 @@ package br.com.unicred.crudapp.application.controller.v1.empresa;
 import br.com.unicred.crudapp.application.controller.v1.empresa.dto.EmpresaRequest;
 import br.com.unicred.crudapp.application.controller.v1.empresa.dto.EmpresaResponse;
 import br.com.unicred.crudapp.application.controller.v1.empresa.dto.converter.EmpresaConverter;
+import br.com.unicred.crudapp.application.controller.v1.exception.erros.ExceptionResponse;
 import br.com.unicred.crudapp.domain.model.empresa.Empresa;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -22,6 +22,7 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("/empresas")
+@Tag(name = "CrudApp", description = "Integração com Empresa")
 public class EmpresaController {
 
     private final EmpresaService service;
@@ -34,6 +35,13 @@ public class EmpresaController {
     }
 
     @PostMapping
+    @Operation(summary = "Salvar cadastro nova empresa")
+    @ApiResponse(responseCode = "201", description = "Created", content = {
+            @Content(mediaType = "application/json", schema = @Schema(implementation = EmpresaResponse.class))
+    })
+    @ApiResponse(responseCode = "422", description = "Unprocessable Entity", content = {
+            @Content(mediaType = "application/json", schema = @Schema(implementation = ExceptionResponse.class))
+    })
     public ResponseEntity<EmpresaResponse> salvar(@RequestBody @Valid final EmpresaRequest empresaRequest) {
         Empresa empresa = converter.converterParaEmpresa(empresaRequest);
         Empresa empresaSalva = service.salvar(empresa);
@@ -62,7 +70,9 @@ public class EmpresaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EmpresaResponse> buscar(@PathVariable final String id) {
+    public ResponseEntity<EmpresaResponse> buscar(
+            @Parameter(description = "id", example = "63c6d5ca5578ec03877be13e")
+            @PathVariable final String id) {
         Empresa empresa = service.buscar(id);
 
         return empresa == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(converter.
