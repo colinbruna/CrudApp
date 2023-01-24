@@ -1,0 +1,149 @@
+openapi: 3.0.3
+
+info:
+  title: Crud App
+  version: 1.0.0
+  description: Documentação CrudApp
+  
+paths:
+  /empresas:
+    post:
+      operationId: salvar
+      summary: Cria uma nova empresa
+      tags:
+        - Empresa
+      requestBody:
+        content:
+          application/json:
+              schema:
+                $ref: '#/components/schemas/EmpresaRequest'
+      responses:
+        '201':
+          description: 'Created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmpresaResponse'
+        '422':
+          description: 'Unprocessable Entity'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExceptionResponse'
+    get:
+      operationId: listar
+      summary: Lista todas as empresas
+      tags:
+        - Empresa
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmpresaResponse'
+  /empresas/{id}:
+    parameters:
+        - schema:
+            type: string
+            example: '63c6d5ca5578ec03877be13e'
+          name: id
+          description: 'id'
+          in: path
+          required: true
+    get:
+      operationId: buscar
+      summary: Consulta uma empresa por id
+      tags:
+        - Empresa
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmpresaResponse'
+        '404':
+          description: 'Not Found'
+    put:
+      operationId: alterar
+      summary: Altera uma empresa
+      tags:
+        - Empresa
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmpresaResponse'
+        '404':
+          description: 'Not Found'
+    delete:
+      operationId: excluir
+      summary: Deleta uma empresa
+      tags:
+        - Empresa
+      responses:
+        '200':
+          description: 'OK'
+        '404':
+          description: 'Not Found'
+          
+tags:
+  - name: Empresa
+    description: Integrações com empresa
+    
+servers:
+  - description: 'Ambiente local de desenvolvimento'
+    url: 'http://localhost:8080'
+
+components:
+  schemas:
+    EmpresaRequest:
+      description: 'Representa um modelo para criação de uma empresa'
+      type: object
+      required: 
+        - nome
+        - cnpj
+        - telefone
+      properties:
+        nome:
+          type: string
+          example: 'Mercado J'
+        cnpj:
+          type: string
+          example: '36194570000107'
+        telefone:
+          type: string
+          minLength: 10
+          maxLength: 11
+          pattern: ^\d{11}$ 
+          description: 'ddd + telefone'
+          example: '519988774411'
+    EmpresaResponse:
+      description: 'Representa um modelo de empresa de resposta'
+      type: object
+      properties:
+        nome:
+          type: string
+          example: 'Mercado J'
+        cnpj:
+          type: string
+          example: '36194570000107'
+    ExceptionResponse:
+      description: 'Representa um modelo de erro'
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date
+          example: '2023-01-24T17:57:11.485+00:00'
+        message:
+          type: string
+          example: 'Nome é obrigatório'
+        details:
+          type: string
+          example: 'uri=/empresas/'

@@ -22,7 +22,7 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("/empresas")
-@Tag(name = "CrudApp", description = "Integração com Empresa")
+@Tag(name = "Controller", description = "Integração com Empresa")
 public class EmpresaController {
 
     private final EmpresaService service;
